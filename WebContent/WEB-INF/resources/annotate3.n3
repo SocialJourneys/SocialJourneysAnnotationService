@@ -1,0 +1,1702 @@
+@prefix dc:      <http://purl.org/dc/elements/1.1/> .
+@prefix :        <http://www.dotrural.ac.uk/irp/uploads/ontologies/bottari#> .
+@prefix trig:    <http://www.w3.org/2004/03/trix/rdfg-1/> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+@prefix cnt:     <http://www.w3.org/2011/content#> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix ptop:    <http://www.ontotext.com/proton/protontop#> .
+@prefix dcterms:  <http://purl.org/dc/terms/> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix oa:      <http://www.w3.org/ns/oa#> .
+@prefix dc-term:  <http://purl.org/dc/terms/> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dctypes:  <http://purl.org/dc/dcmitype/> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+
+oa:moderating
+      a       oa:Motivation , owl:NamedIndividual ;
+      rdfs:comment "The motivation that represents an assignment of value or quality to the target resource(s). For example annotating an Annotation to moderate it up in a trust network or threaded discussion."@en ;
+      skos:inScheme oa:motivationScheme ;
+      skos:prefLabel "moderating"@en .
+
+<http://sj.abdn.ac.uk/resource/naptan/stops/639006353>
+      a       <http://transport.data.gov.uk/def/naptan/Stop> .
+
+ptop:establishedIn
+      a       owl:ObjectProperty ;
+      rdfs:comment "The place where the organization is established or registered"@en ;
+      rdfs:domain ptop:Organization ;
+      rdfs:label "Established in"@en ;
+      rdfs:subPropertyOf ptop:locatedIn .
+
+ptop:hasSocialPosition
+      a       owl:ObjectProperty ;
+      rdfs:comment "The relation between a person and the social position he has. "@en ;
+      rdfs:domain ptop:Person ;
+      rdfs:label "has Social Position"@en ;
+      rdfs:range ptop:SocialPosition ;
+      owl:inverseOf ptop:socialPositionHolder .
+
+ptop:name
+      a       owl:DatatypeProperty ;
+      rdfs:domain ptop:Entity ;
+      rdfs:label "Name of any kind"@en ;
+      rdfs:range rdfs:Literal .
+
+oa:item
+      a       owl:ObjectProperty ;
+      rdfs:comment """The relationship between a multiplicity construct node and its constituent resources.
+
+There MUST be 1 or more item relationships for each multiplicity construct oa:Choice, oa:Composite and oa:List."""@en ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "item"@en ;
+      rdfs:subPropertyOf rdfs:member .
+
+ptop:endTime
+      a       owl:DatatypeProperty ;
+      rdfs:comment "the end time point of a happening"@en ;
+      rdfs:domain ptop:Happening ;
+      rdfs:label "End Time"@en .
+
+ptop:establishmentDate
+      a       owl:DatatypeProperty ;
+      rdfs:comment "The date when the organization was established or registered"@en ;
+      rdfs:domain ptop:Organization ;
+      rdfs:label "Establishment Date"@en .
+
+ptop:isBossOf
+      a       owl:ObjectProperty ;
+      rdfs:comment "Relates a Person to another one, where the first is the immediate boss or supervisor of the latter. This is a many-to-many relationship, i.e. there can be more than one boss of a person, even contemporally."@en ;
+      rdfs:domain ptop:Person ;
+      rdfs:label "is Boss of"@en ;
+      rdfs:range ptop:Person .
+
+ptop:registeredIn
+      a       owl:ObjectProperty ;
+      rdfs:comment "A relation between an organization and the location in which it is registered."@en ;
+      rdfs:domain ptop:Organization ;
+      rdfs:label "Registered in"@en ;
+      rdfs:subPropertyOf ptop:locatedIn .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/a31f77f9-7465-4d6b-9d90-f82f1a517563>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "delays"^^xsd:string ;
+      oa:end  "29"^^xsd:string ;
+      oa:hasBody <http://datex2.eu/schema/2/2_0/delays> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/a31f77f9-7465-4d6b-9d90-f82f1a517563> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "23"^^xsd:string .
+
+oa:motivatedBy
+      a       owl:ObjectProperty ;
+      rdfs:comment """The relationship between an Annotation and a Motivation, indicating the reasons why the Annotation was created.
+
+Each Annotation SHOULD have at least one oa:motivatedBy relationship, and MAY be more than 1."""@en ;
+      rdfs:domain oa:Annotation ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "motivatedBy"@en ;
+      rdfs:range oa:Motivation .
+
+oa:identifying
+      a       oa:Motivation , owl:NamedIndividual ;
+      rdfs:comment "The motivation that represents the assignment of an identity to the target resource(s). For example, annotating the name of a city in a string of text with the URI that identifies it."@en ;
+      skos:inScheme oa:motivationScheme ;
+      skos:prefLabel "identifying"@en .
+
+:Tweet
+      a       owl:Class ;
+      rdfs:label "Tweet"^^xsd:string ;
+      owl:equivalentClass <http://rdfs.org/sioc/types#MicroblogPost> .
+
+ptop:resourceType
+      a       owl:DatatypeProperty ;
+      rdfs:comment "The nature or genre of the content of the resource. Type includes terms describing general categories, functions, genres, or aggregation levels for content. Recommended best practice is to select a value from a controlled vocabulary (for example, the DCMI Type Vocabulary [DCT]). To describe the physical or digital manifestation of the resource, use the resourceFormat property. DC2003ISO."@en ;
+      rdfs:domain ptop:InformationResource ;
+      rdfs:label "Resource Type"@en .
+
+oa:editing
+      a       oa:Motivation , owl:NamedIndividual ;
+      rdfs:comment "The motivation that represents a request for a modification or edit to the target resource. For example, an Annotation that requests a typo to be corrected."@en ;
+      skos:inScheme oa:motivationScheme ;
+      skos:prefLabel "editing"@en .
+
+oa:Style
+      a       owl:Class ;
+      rdfs:comment """A resource which describes the style in which the selection or resource should be rendered, indicated with oa:styledBy from an oa:Annotation.
+
+This class is not used directly in Annotations, only its subclasses are.
+
+The content of the resource provides the rendering hints about the Annotation's constituent resources. 
+
+The Specifier's description MAY be conveyed as an external or embedded resource (cnt:Content), or as RDF properties within the graph. The description SHOULD use existing standards whenever possible. If the Specifier has an HTTP URI, then its description, and only its description, MUST be returned when the URI is dereferenced."""@en ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "Style"@en .
+
+ptop:Location
+      a       owl:Class ;
+      rdfs:comment "Usually a geographic location on the earth, however any sort of 3D regions also fit here. The classification is based on the ADL Feature Type Thesaurus version 070203. Additionally, classes from Geonames classification are included. For each specific type, the corresponding NIMA GNS designators (DSG) are given."@en ;
+      rdfs:label "Location"@en ;
+      rdfs:subClassOf ptop:Object .
+
+oa:classifying
+      a       oa:Motivation , owl:NamedIndividual ;
+      rdfs:comment "The motivation that represents the assignment of a classification type, typically from a controlled vocabulary, to the target resource(s). For example to classify an Image resource as a Portrait."@en ;
+      skos:inScheme oa:motivationScheme ;
+      skos:prefLabel "classifying"@en .
+
+oa:hasBody
+      a       owl:ObjectProperty ;
+      rdfs:comment """The relationship between oa:Annotation and body. The body is somehow \"about\" the oa:hasTarget of the annotation.
+
+The Body may be of any media type, and contain any type of content. The Body SHOULD be identified by HTTP URIs unless they are embedded within the Annotation.
+
+Embedded bodies SHOULD be instances of cnt:ContentAsText and embed their content with cnt:chars. They SHOULD declare their media type with dc:format, and MAY indicate their language using dc:language and a RFC-3066 language tag. 
+
+There is no OA class provided for \"Body\" as a body might be a target of a different annotation. However, there SHOULD be 1 or more content-based classes associated with the body resources of an Annotation, and the dctypes: vocabulary is recommended for this purpose, for instance dctypes:Text to declare textual content.
+"""@en ;
+      rdfs:domain oa:Annotation ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "hasBody"@en .
+
+oa:Selector
+      a       owl:Class ;
+      rdfs:comment """A resource which describes the segment of interest in a representation of a Source resource, indicated with oa:hasSelector from the Specific Resource. 
+
+This class is not used directly in Annotations, only its subclasses are.
+
+The nature of the Selector will be dependent on the type of the representation for which the segment is conveyed. The specific type of selector should be indicated using a subclass of oa:Selector.
+
+The Specifier's description MAY be conveyed as an external or embedded resource (cnt:Content), or as RDF properties within the graph. The description SHOULD use existing standards whenever possible. If the Specifier has an HTTP URI, then its description, and only its description, MUST be returned when the URI is dereferenced."""@en ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "Selector"@en .
+
+oa:TextQuoteSelector
+      a       owl:Class ;
+      rdfs:comment """A Selector that describes a textual segment by means of quoting it, plus passages before or after it.
+
+For example, if the document were \"abcdefghijklmnopqrstuvwxyz\", one could select \"efg\" by a oa:prefix of \"abcd\", the quotation of oa:exact \"efg\" and a oa:suffix of \"hijk\".
+
+The text MUST be normalized before recording.
+
+Each TextQuoteSelector MUST have exactly 1 oa:exact property.
+
+Each TextQuoteSelector SHOULD have exactly 1 oa:prefix property, and MUST NOT have more than 1.
+
+Each TextQuoteSelector SHOULD have exactly 1 oa:suffix property, and MUST NOT have more than 1."""@en ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "TextQuoteSelector"@en ;
+      rdfs:subClassOf oa:Selector .
+
+:name
+      a       owl:DatatypeProperty ;
+      rdfs:label "name"^^xsd:string .
+
+ptop:hasParent
+      a       owl:ObjectProperty ;
+      rdfs:comment "Relation between a person and his/her mother or father."@en ;
+      rdfs:label "has Parent"@en ;
+      rdfs:subPropertyOf ptop:hasRelative ;
+      owl:inverseOf ptop:hasChild .
+
+ptop:producedBy
+      a       owl:ObjectProperty ;
+      rdfs:comment "A relation between a company and its ProductModel"@en ;
+      rdfs:domain ptop:ProductModel ;
+      rdfs:label "Produced by"@en ;
+      rdfs:range ptop:Agent .
+
+:messageTimeStamp
+      a       owl:DatatypeProperty ;
+      rdfs:label "message time stamp"^^xsd:string .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/e9289f24-f915-46d8-aa13-99761cbd6da1>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "mins"^^xsd:string ;
+      oa:end  "40"^^xsd:string ;
+      oa:hasBody <http://datex2.eu/schema/2/2_0/minute> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/e9289f24-f915-46d8-aa13-99761cbd6da1> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "36"^^xsd:string .
+
+:numberOfPositiveTweets
+      a       owl:DatatypeProperty ;
+      rdfs:label "number of positive tweets"^^xsd:string .
+
+<http://datex2.eu/schema/2/2_0/delays>
+      a       <http://datex2.eu/schema/2/2_0/DelaysTypeEnum> .
+
+<http://datex2.eu/schema/2/2_0/DelaysTypeEnum>
+      a       owl:Class ;
+      rdfs:subClassOf ptop:Entity .
+
+ptop:partOf
+      a       owl:TransitiveProperty , owl:ObjectProperty ;
+      rdfs:comment "The general part-of relation which takes place between a whole and each of its parts. It has a number of specializations."@en ;
+      rdfs:domain ptop:Entity ;
+      rdfs:label "Part of"@en ;
+      rdfs:range ptop:Entity .
+
+ptop:Event
+      a       owl:Class ;
+      rdfs:comment "A dynamic event, such as \"running\" or \"a concert\"."@en ;
+      rdfs:label "Event"@en ;
+      rdfs:subClassOf ptop:Happening .
+
+oa:motivationScheme
+      a       owl:NamedIndividual , skos:ConceptScheme ;
+      rdfs:comment "The concept scheme for Open Annotation Motivations"@en ;
+      rdfs:label "motivationScheme"@en .
+
+ptop:nimaGNSDesignator
+      a       owl:DatatypeProperty ;
+      rdfs:comment "The designator of the entity according to the NIMA GeoNames Server."@en ;
+      rdfs:domain ptop:Location ;
+      rdfs:label "NIMA GNS Designator"@en .
+
+oa:highlighting
+      a       oa:Motivation , owl:NamedIndividual ;
+      rdfs:comment "The motivation that represents a highlighted section of the target resource or segment. For example to draw attention to the selected text that the annotator disagrees with. A Highlight may or may not have a Body resource"@en ;
+      skos:inScheme oa:motivationScheme ;
+      skos:prefLabel "highlighting"@en .
+
+ptop:InformationResource
+      a       owl:Class ;
+      rdfs:comment "InformationResource denotes an information resource with identity, as defined in Dublin Core (DC2003ISO). InformationResource is considered any communication or message that is delivered or produced, taking into account the specific intention of its originator, and also the supposition (and anticipation) for a particular audience or counter-agent in the process of communication (i.e. passive or active feed-back)."@en ;
+      rdfs:label "Information Resource"@en ;
+      rdfs:subClassOf ptop:Statement .
+
+ptop:documentAbstract
+      a       owl:DatatypeProperty ;
+      rdfs:comment "An abstract or summary of a document."@en ;
+      rdfs:domain ptop:Document ;
+      rdfs:label "Document Abstract"@en ;
+      rdfs:subPropertyOf ptop:description .
+
+ptop:hasMember
+      a       owl:ObjectProperty ;
+      rdfs:comment "Relates a particular organization to the agents that are its members. This predicate indicates `generic' membership, although there may be specialized kinds of membership in the same organization. Typically, membership eligibility is determined by the organization and accepted with the agent's voluntary affiliation. In many cases Persons that take Positions within Organization are considered members of the organization, although this is no way formally encoded here."@en ;
+      rdfs:domain ptop:Group ;
+      rdfs:label "has Member"@en ;
+      rdfs:range ptop:Agent .
+
+oa:describing
+      a       oa:Motivation , owl:NamedIndividual ;
+      rdfs:comment "The motivation that represents a description of the target resource(s), as opposed to a comment about them. For example describing the above PDF's contents, rather than commenting on their accuracy."@en ;
+      skos:inScheme oa:motivationScheme ;
+      skos:prefLabel "describing"@en .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/6980084e-9222-4c5a-b923-cae615940da6>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "Union Grove"^^xsd:string ;
+      oa:end  "72"^^xsd:string ;
+      oa:hasBody <http://sj.abdn.ac.uk/resource/naptan/stops/639000032> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/6980084e-9222-4c5a-b923-cae615940da6> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "61"^^xsd:string .
+
+ptop:hasCreator
+      a       owl:ObjectProperty ;
+      rdfs:comment "An agent primarily responsible for making the content of a resource. Examples of Creator include a person, an organization, or a service. Typically, the name of the Creator should be used to indicate the agent. (DC2003ISO, Creator)"@en ;
+      rdfs:label "has Creator"@en ;
+      rdfs:subPropertyOf ptop:hasContributor .
+
+oa:hasSelector
+      a       owl:ObjectProperty ;
+      rdfs:comment """The relationship between a oa:SpecificResource and a oa:Selector.
+
+There MUST be exactly 0 or 1 oa:hasSelector relationship associated with a 
+Specific Resource. 
+
+If multiple Selectors are required, either to express a choice between different optional, equivalent selectors, or a chain of selectors that should all be processed, it is necessary to use oa:Choice, oa:Composite or oa:List as a selector."""@en ;
+      rdfs:domain oa:SpecificResource ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "hasSelector"@en ;
+      rdfs:range oa:Selector .
+
+oa:SpecificResource
+      a       owl:Class ;
+      rdfs:comment """A resource identifies part of another Source resource, a particular representation of a resource, a resource with styling hints for renders, or any combination of these. 
+
+The Specific Resource takes the role of oa:hasBody or oa:hasTarget in an oa:Annotation instead of the Source resource.
+
+There MUST be exactly 1 oa:hasSource relationship associated with a Specific Resource.
+
+There MUST be exactly 0 or 1 oa:hasSelector relationship associated with a Specific Resource.
+
+There MAY be 0 or 1 oa:hasState relationship for each Specific Resource.
+
+If the Specific Resource has an HTTP URI, then the exact segment of the Source resource that it identifies, and only the segment, MUST be returned when the URI is dereferenced. For example, if the segment of interest is a region of an image and the Specific Resource has an HTTP URI, then dereferencing it MUST return the selected region of the image as it was at the time when the annotation was created. Typically this would be a burden to support, and thus the Specific Resource SHOULD be identified by a globally unique URI, such as a UUID URN. If it is not considered important to allow other Annotations or systems to refer to the Specific Resource, then a blank node MAY be used instead."""@en ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "SpecificResource"@en .
+
+ptop:doingBusinessAs
+      a       owl:DatatypeProperty ;
+      rdfs:comment "A name used for marketing purposes. Usually, it does not correspond to the legal name of the organisation."@en ;
+      rdfs:domain ptop:Organization ;
+      rdfs:label "Doing Business as"@en ;
+      rdfs:subPropertyOf ptop:name .
+
+<http://sj.abdn.ac.uk/resource/135297884>
+      a       <http://sj.abdn.ac.uk/ontology/Highway> .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/twitterUser/FirstAberdeen>
+      a       :TwitterUser ;
+      :posts  <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> .
+
+oa:when
+      a       owl:DatatypeProperty ;
+      rdfs:comment "The timestamp at which the Source resource should be interpreted for the Annotation, typically the time that the Annotation was created."@en ;
+      rdfs:domain oa:TimeState ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "when"@en ;
+      rdfs:range xsd:dateTimeStamp .
+
+ptop:informationResourceIdentifier
+      a       owl:DatatypeProperty ;
+      rdfs:comment "An unambiguous reference to the information resource within a given context. Recommended best practice is to identify the resource by means of a string or number conforming to a formal identification system. Formal identification systems include but are not limited to the Uniform Resource Identifier (URI) (including the Uniform Resource Locator (URL)), the Digital Object Identifier (DOI), and the International Standard Book Number (ISBN). DC2003ISO."@en ;
+      rdfs:domain ptop:InformationResource ;
+      rdfs:label "Information Resource Identifier"@en .
+
+<http://proton.semanticweb.org/2006/05/protont#Number>
+      a       owl:Class ;
+      rdfs:subClassOf ptop:Entity .
+
+oa:HttpRequestState
+      a       owl:Class ;
+      rdfs:comment """A resource which describes how to retrieve an appropriate representation of the Source resource for the Annotation, based on the HTTP Request headers to send to the server.
+
+There MUST be exactly 1 rdf:value property per HttpRequestState, containing HTTP request headers as a single, complete string, exactly as they would appear in an HTTP request. """@en ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "HttpRequestState"@en ;
+      rdfs:subClassOf oa:State .
+
+ptop:SocialPosition
+      a       owl:Class ;
+      rdfs:comment "The situation of a person, having a social position like celebrity, nobelty, job position, cleric, out of laws. The sub-classes of this class define different social statuses."@en ;
+      rdfs:label "Social Position"@en ;
+      rdfs:subClassOf ptop:Situation .
+
+ptop:Role
+      a       owl:Class ;
+      rdfs:comment "The role of an entity (usually an agent) within/during/affecting (intentionally or not) a particular happening. For instance a project coordinator, or a trial defendant, or even a material object that serves as an evidence in a trial (e.g. a weapon). Usually, we say 'this object is in this role in this happening'."@en ;
+      rdfs:label "Role"@en ;
+      rdfs:subClassOf ptop:Situation .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/849e8dec-998a-46f4-958e-0c53c6230f17>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "Union Grove"^^xsd:string ;
+      oa:end  "72"^^xsd:string ;
+      oa:hasBody <http://sj.abdn.ac.uk/resource/naptan/stops/639000052> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/849e8dec-998a-46f4-958e-0c53c6230f17> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "61"^^xsd:string .
+
+ptop:hasParticipant
+      a       owl:ObjectProperty ;
+      rdfs:comment "The relation between a happenning and the agent involved in it. Fequently, the participants play some roles in the happening, then the appriate roles have to be introduced."@en ;
+      rdfs:domain ptop:Happening ;
+      rdfs:label "Participant in a Happening"@en ;
+      rdfs:range ptop:Agent ;
+      rdfs:subPropertyOf ptop:hasParticipatingEntity ;
+      owl:inverseOf ptop:involvedIn .
+
+:screenName
+      a       owl:DatatypeProperty ;
+      rdfs:label "screen name"^^xsd:string .
+
+ptop:Statement
+      a       owl:Class ;
+      rdfs:comment "A message that is stated or declared; a communication (oral or written), setting forth particulars or facts, etc; \"according to his statement he was in London on that day\". WordNet 1.7.1"@en ;
+      rdfs:label "Statement"@en ;
+      rdfs:subClassOf ptop:Object .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/f936b78c-8738-457d-8c14-605c73c8bf03>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "10"^^xsd:string ;
+      oa:end  "35"^^xsd:string ;
+      oa:hasBody <http://www.ontotext.com/kim/2006/05/wkb#Number_T.51> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/f936b78c-8738-457d-8c14-605c73c8bf03> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "33"^^xsd:string .
+
+<http://sj.abdn.ac.uk/resource/naptan/stops/639000052>
+      a       <http://transport.data.gov.uk/def/naptan/Stop> .
+
+ptop:operatedBy
+      a       owl:ObjectProperty ;
+      rdfs:comment "A relation between a service and the agent (usually organisation), who provides it"@en ;
+      rdfs:domain ptop:Service ;
+      rdfs:label "Operated by"@en ;
+      rdfs:range ptop:Agent .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/d517a267-54a6-4ab0-a6e9-484bd432a3af>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "Holburn St"^^xsd:string ;
+      oa:end  "87"^^xsd:string ;
+      oa:hasBody <http://sj.abdn.ac.uk/resource/9762151> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/d517a267-54a6-4ab0-a6e9-484bd432a3af> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "77"^^xsd:string .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/8d88900e-f452-4939-a381-259e2e5a5d18>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "Union Grove"^^xsd:string ;
+      oa:end  "72"^^xsd:string ;
+      oa:hasBody <http://sj.abdn.ac.uk/resource/naptan/stops/639000022> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/8d88900e-f452-4939-a381-259e2e5a5d18> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "61"^^xsd:string .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/4307f31f-c851-41d6-92fc-935544466aef>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "Union Grove"^^xsd:string ;
+      oa:end  "72"^^xsd:string ;
+      oa:hasBody <http://sj.abdn.ac.uk/resource/naptan/stops/639000041> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/4307f31f-c851-41d6-92fc-935544466aef> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "61"^^xsd:string .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/acdc329f-a1e2-425c-af0e-36eea3fd6c13>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "Holburn St"^^xsd:string ;
+      oa:end  "87"^^xsd:string ;
+      oa:hasBody <http://sj.abdn.ac.uk/resource/129736951> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/acdc329f-a1e2-425c-af0e-36eea3fd6c13> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "77"^^xsd:string .
+
+ptop:parentOrganizationOf
+      a       owl:TransitiveProperty , owl:ObjectProperty ;
+      rdfs:comment "A relation between two organizations, where one of them is dependent on the other in some sense. This is a transitive relation, i.e. if organization X is a parent organization of Y and the latter is a parent organization of Z, then X is also considered a parent organization of Z. Inverse of subsidiaryOrganizationOf."@en ;
+      rdfs:domain ptop:Organization ;
+      rdfs:label "Parent Organization of"@en ;
+      rdfs:range ptop:Organization ;
+      rdfs:subPropertyOf ptop:partiallyControls ;
+      owl:inverseOf ptop:subsidiaryOrganizationOf .
+
+owl:versionInfo
+      a       owl:AnnotationProperty .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/50fd720f-9ab7-431c-a5d3-50a1cf6df91a>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "Holburn St"^^xsd:string ;
+      oa:end  "87"^^xsd:string ;
+      oa:hasBody <http://sj.abdn.ac.uk/resource/135297884> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/50fd720f-9ab7-431c-a5d3-50a1cf6df91a> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "77"^^xsd:string .
+
+ptop:Happening
+      a       owl:Class ;
+      rdfs:comment "Something that happens. It can be either dynamic - like in \"drawing a circle\", or static - like in \"being a president\". In all cases, a happening (an event, a situation, or a time period) has a certain (usually quite concrete) temporal positioning - in the simplest case it is the one, denoted by start and end point in time."@en ;
+      rdfs:label "Happening"@en ;
+      rdfs:subClassOf ptop:Entity .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/e3cfc918-3f42-41c2-96a8-a506c641be98>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "Holburn"^^xsd:string ;
+      oa:end  "84"^^xsd:string ;
+      oa:hasBody <http://sj.abdn.ac.uk/resource/nptg/locality/ES001772> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/e3cfc918-3f42-41c2-96a8-a506c641be98> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "77"^^xsd:string .
+
+oa:annotatedAt
+      a       owl:DatatypeProperty ;
+      rdfs:comment """The time at which the Annotation was created. 
+
+There SHOULD be exactly 1 oa:annotatedAt property per Annotation, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified."""@en ;
+      rdfs:domain oa:Annotation ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "annotatedAt"@en ;
+      rdfs:range xsd:dateTimeStamp .
+
+:talksAboutPositively
+      a       owl:ObjectProperty ;
+      rdfs:label "talks about positively"^^xsd:string ;
+      rdfs:subPropertyOf :talksAbout .
+
+ptop:documentAuthor
+      a       owl:ObjectProperty ;
+      rdfs:comment "The creator (or one of the creators) of a document."@en ;
+      rdfs:label "Document Author"@en ;
+      rdfs:range ptop:Agent ;
+      rdfs:subPropertyOf ptop:hasCreator .
+
+ptop:involvedEntityIn
+      a       owl:ObjectProperty ;
+      rdfs:comment "The entities related to a given happening. Such entities can be agents, instruments, materials, places, etc."@en ;
+      rdfs:domain ptop:Entity ;
+      rdfs:label "Entity Involved in"@en ;
+      rdfs:range ptop:Happening .
+
+ptop:givenName
+      a       owl:DatatypeProperty ;
+      rdfs:comment "The relation between a person and his/her given name."@en ;
+      rdfs:domain ptop:Person ;
+      rdfs:label "Given Name"@en ;
+      rdfs:subPropertyOf ptop:name .
+
+ptop:firstName
+      a       owl:DatatypeProperty ;
+      rdfs:comment "The relation between a person and his/her first name. Usually used to call the person."@en ;
+      rdfs:domain ptop:Person ;
+      rdfs:label "First Name"@en ;
+      rdfs:subPropertyOf ptop:name .
+
+ptop:ProductModel
+      a       owl:Class ;
+      rdfs:comment "The general concept of a product model, for example, Ford T. The instances of this class are not specific instances of the product - the latter are just instances. Although product models are rather abstract entities (generally, intangible), this class is defined as a sub-class of Object, because it has a strong temporal extent (it comes to exsitence at some point of time). There could be several information resources associated with a product model (e.g. specifications, brouchures, etc.), but it is not an information resource on its own."@en ;
+      rdfs:label "Product Model"@en ;
+      rdfs:subClassOf ptop:Object .
+
+ptop:ContactInformation
+      a       owl:Class ;
+      rdfs:comment "Any instance of a particular notation, used to make the contact with an individual, an organization, or any other object possible."@en ;
+      rdfs:label "Contact Information"@en ;
+      rdfs:subClassOf ptop:Abstract .
+
+ptop:Organization
+      a       owl:Class ;
+      rdfs:comment "Organization is a group, which is established in such a way that certain known relationships and obligations exist between the members, and/or between the organization and its members, and/or between the organization and the public (individuals or groups). It includes both informal and legally constituted organizations. Organizations can act as agents - to undertake projects, to enter into agreements, to own properties, etc. Most organizations have names. Almost all of them have at least two members."@en ;
+      rdfs:label "Organization"@en ;
+      rdfs:subClassOf ptop:Group .
+
+:talksAboutNegatively
+      a       owl:ObjectProperty ;
+      rdfs:label "talks about negatively"^^xsd:string ;
+      rdfs:subPropertyOf :talksAbout .
+
+<http://sj.abdn.ac.uk/resource/nptg/locality/ES001772>
+      a       <http://transport.data.gov.uk/def/naptan/NptgLocality> .
+
+ptop:Agent
+      a       owl:Class ;
+      rdfs:comment "An Agent is something, which can show (carry out) an independent action, whether consciously or not. Most animals are considered agents, in most contexts; so are most organizations. According to DOLCE 2.0 \"objects to which we ascribe intentions, beliefs and desires\". In PROTON, Agent also denotes any automatic device and service, including web services and servers."@en ;
+      rdfs:label "Agent"@en ;
+      rdfs:subClassOf ptop:Object .
+
+ptop:hasSibling
+      a       owl:ObjectProperty ;
+      rdfs:comment "Relation between a person and his/her siblings - brother or sister."@en ;
+      rdfs:label "has Sibling"@en ;
+      rdfs:subPropertyOf ptop:hasRelative .
+
+ptop:Object
+      a       owl:Class ;
+      rdfs:comment "Objects are entities that could be claimed to exist - in some sense of existence. An object can play a certain role in some happenings. Objects could be substantially real - as the Buckingham Palace or a hardcopy book - or substantially imperceptible - for instance, an electronic document that exists only virtually, one cannot touch it."@en ;
+      rdfs:label "Object"@en ;
+      rdfs:subClassOf ptop:Entity .
+
+oa:prefix
+      a       owl:DatatypeProperty ;
+      rdfs:comment """A snippet of text that occurs immediately before the text which is being selected.
+
+See oa:TextQuoteSelector."""@en ;
+      rdfs:domain oa:Selector ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "prefix"@en .
+
+ptop:Topic
+      a       owl:Class ;
+      rdfs:comment "Any sort of a topic or theme, explicitly defined for classification purposes. As long as any other class or entity can play the role of a topic, the instances of this class are only those concepts that are defined to serve as topics. The topic class is the natural top-class for linkage of logically informal taxonomies."@en ;
+      rdfs:label "Topic"@en ;
+      rdfs:subClassOf ptop:Abstract .
+
+oa:Annotation
+      a       owl:Class ;
+      rdfs:comment """Typically an Annotation has a single Body (oa:hasBody), which is the comment or other descriptive resource, and a single Target (oa:hasTarget) that the Body is somehow \"about\". The Body provides the information which is annotating the Target. 
+
+This \"aboutness\" may be further clarified or extended to notions such as classifying or identifying with oa:motivatedBy."""@en ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "Annotation"@en .
+
+ptop:startTime
+      a       owl:DatatypeProperty ;
+      rdfs:comment "the starting moment of a happening"@en ;
+      rdfs:domain ptop:Happening ;
+      rdfs:label "Start Time"@en .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/e8a57983-5e96-4f4e-b6c3-5fc0ac31d2ed>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "5"^^xsd:string ;
+      oa:end  "9"^^xsd:string ;
+      oa:hasBody <http://www.ontotext.com/kim/2006/05/wkb#Number_T.93> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/e8a57983-5e96-4f4e-b6c3-5fc0ac31d2ed> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "8"^^xsd:string .
+
+ptop:withinOrganization
+      a       owl:ObjectProperty ;
+      rdfs:comment "Determines in which organization is the position"@en ;
+      rdfs:domain ptop:JobPosition ;
+      rdfs:label "within Organization"@en ;
+      rdfs:range ptop:Organization .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/bf5187bc-9530-4f0c-9d99-eac85d081c79>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "Holburn St"^^xsd:string ;
+      oa:end  "87"^^xsd:string ;
+      oa:hasBody <http://sj.abdn.ac.uk/resource/238186305> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/bf5187bc-9530-4f0c-9d99-eac85d081c79> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "77"^^xsd:string .
+
+ptop:locatedIn
+      a       owl:TransitiveProperty , owl:ObjectProperty ;
+      rdfs:comment "The relation between an object (also some happenings via their participants) and location where the object is."@en ;
+      rdfs:domain ptop:Entity ;
+      rdfs:label "Located in"@en ;
+      rdfs:range ptop:Location .
+
+ptop:hasParticipatingEntity
+      a       owl:ObjectProperty ;
+      rdfs:comment "The relation between a happening and an entity determining it. Such entities can be agents, instruments, materials, places, etc."@en ;
+      rdfs:domain ptop:Happening ;
+      rdfs:label "Entity Participating in a Happening"@en ;
+      rdfs:range ptop:Entity ;
+      owl:inverseOf ptop:involvedEntityIn .
+
+ptop:transitiveOver
+      a       owl:AnnotationProperty ;
+      rdfs:comment "Makes possible the modelling of a specific, but rather useful modelling pattern. The semantics is defined with the following axiom: (p,transitiveOver,q) (x,p,y) (y,q,z) => (x,p,z). Sample usage is: (locatedIn, transitiveOver, subRegionOf) (Ontotext,locatedIn,Bulgaria) (Bulgaria,subRegionOf,Europe) => (Ontotext,locatedIn,Europe). The intended domain and range of this property are owl:ObjectProperty; those are not formally specified, in order not to get the ontology outside the OWL DL segment."@en ;
+      rdfs:label "Transitive over"@en .
+
+oa:SemanticTag
+      a       owl:Class ;
+      rdfs:comment """A class assigned to the Body when it is a semantic tagging resource; a URI that identifies a concept, rather than an embedded string, frequently a term from a controlled vocabulary.
+
+It is NOT RECOMMENDED to use the URI of a document as a Semantic Tag, as it might also be used as a regular Body in other Annotations which would inherit the oa:SemanticTag class assignment. Instead it is more appropriate to create a new URI and link it to the document, using the foaf:page predicate."""@en ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "SemanticTag"@en ;
+      rdfs:subClassOf oa:Tag .
+
+<http://sj.abdn.ac.uk/resource/94626726>
+      a       <http://sj.abdn.ac.uk/ontology/Highway> .
+
+ptop:lastName
+      a       owl:DatatypeProperty ;
+      rdfs:comment "The relation between a person and his/her last name. Usually the family name."@en ;
+      rdfs:domain ptop:Person ;
+      rdfs:label "Last Name"@en ;
+      rdfs:subPropertyOf ptop:name .
+
+ptop:heldFrom
+      a       owl:DatatypeProperty ;
+      rdfs:comment "When the holder occupied a given position"@en ;
+      rdfs:domain ptop:JobPosition ;
+      rdfs:label "Held from"@en ;
+      rdfs:subPropertyOf ptop:startTime .
+
+ptop:hasSpouse
+      a       owl:ObjectProperty , owl:SymmetricProperty ;
+      rdfs:comment "Relation between a man and a woman that are married. This property is time constrained by the marriage happening for the two persons. Thus, one could have different spouses in different periods. If this time relation is important for a given domain, it needs to be modelled by the marriage happening."@en ;
+      rdfs:label "has Spouse"@en ;
+      rdfs:subPropertyOf ptop:hasRelative .
+
+oa:hasState
+      a       owl:ObjectProperty ;
+      rdfs:comment """The relationship between a oa:SpecificResource and a oa:State resource.
+
+There MAY be 0 or 1 oa:hasState relationship for each SpecificResource.
+
+If there are multiple State resources that must be associated with the specific resource, then the use of the Multiplicity Constructs oa:Choice, oa:Composite or oa:List is RECOMMENDED."""@en ;
+      rdfs:domain oa:SpecificResource ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "hasState"@en ;
+      rdfs:range oa:State .
+
+ptop:socialPositionHolder
+      a       owl:ObjectProperty ;
+      rdfs:comment "The relation between a social position and the person who has it. "@en ;
+      rdfs:domain ptop:SocialPosition ;
+      rdfs:label "Social Position Holder"@en ;
+      rdfs:range ptop:Person ;
+      owl:inverseOf ptop:hasSocialPosition .
+
+ptop:subRegionOf
+      a       owl:TransitiveProperty , owl:ObjectProperty ;
+      rdfs:comment "Relation between two locations where the first is contained within the other."@en ;
+      rdfs:domain ptop:Location ;
+      rdfs:label "Subregion of"@en ;
+      rdfs:subPropertyOf ptop:partOf , ptop:locatedIn .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/d74a83d6-8fbb-4971-97d6-0053e3b6bce4>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "Holburn St"^^xsd:string ;
+      oa:end  "87"^^xsd:string ;
+      oa:hasBody <http://sj.abdn.ac.uk/resource/238186302> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/d74a83d6-8fbb-4971-97d6-0053e3b6bce4> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "77"^^xsd:string .
+
+ptop:holder
+      a       owl:ObjectProperty ;
+      rdfs:comment "The person holding the position"@en ;
+      rdfs:domain ptop:JobPosition ;
+      rdfs:label "Holder"@en ;
+      rdfs:range ptop:Person .
+
+oa:hasTarget
+      a       owl:ObjectProperty ;
+      rdfs:comment """The relationship between oa:Annotation and target. The target resource is what the oa:hasBody is somewhat \"about\".
+
+The target may be of any media type, and contain any type of content. The target SHOULD be identified by HTTP URIs unless they are embedded within the Annotation.
+
+Embedded targets SHOULD be instances of cnt:ContentAsText and embed their content with cnt:chars. They SHOULD declare their media type with dc:format, and MAY indicate their language using dc:language and a RFC-3066 language tag. 
+
+There is no OA class provided for \"Target\" as a target might be a body in a different annotation. However, there SHOULD be 1 or more content-based classes associated with the target resources of an Annotation, and the dctypes: vocabulary is recommended for this purpose, for instance dctypes:Text to declare textual content."""@en ;
+      rdfs:domain oa:Annotation ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "hasTarget"@en .
+
+ptop:inLanguage
+      a       owl:ObjectProperty ;
+      rdfs:comment "The language of the intellectual content of a resource. Recommended best practice is to use RFC 3066 [RFC3066], which, in conjunction with ISO 639 [ISO639], defines two- and three-letter primary language tags with optional subtags. Examples include ?en? or ?eng? for English, ?akk? for Akkadian, and ?en-GB? for English used in the United Kingdom. DC2003ISO"@en ;
+      rdfs:domain ptop:InformationResource ;
+      rdfs:label "in Language"@en ;
+      rdfs:range ptop:Language .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/e2423f00-0865-46f0-b11f-8c2d211cf561>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "roadworks"^^xsd:string ;
+      oa:end  "57"^^xsd:string ;
+      oa:hasBody <http://datex2.eu/schema/2/2_0/roadworks> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/e2423f00-0865-46f0-b11f-8c2d211cf561> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "48"^^xsd:string .
+
+oa:hasSource
+      a       owl:ObjectProperty ;
+      rdfs:comment """The relationship between a oa:SpecificResource and the resource that it is a more specific representation of. 
+
+There MUST be exactly 1 oa:hasSource relationship associated with a Specific Resource."""@en ;
+      rdfs:domain oa:SpecificResource ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "hasSource"@en .
+
+oa:   a       owl:Ontology ;
+      rdfs:comment """The Open Annotation Core Data Model specifies an interoperable framework for creating associations between related resources, annotations, using a methodology that conforms to the Architecture of the World Wide Web.
+
+This ontology is a non-normative OWL formalization of the textual OA specification at http://www.openannotation.org/spec/core/20130208/index.html
+
+Note that OWL imports are disabled in the published version in order to reduce external implications, improve OWL 2 Profile conformity and increase interoperability. Some OWL tools might thus misleadingly show this ontology as (re)defining properties like skos:prefLabel."""@en ;
+      rdfs:seeAlso <http://www.openannotation.org/spec/core/20130208/index.html> ;
+      dc:contributor "Stian Soiland-Reyes"@en ;
+      dc:creator "Herbert Van de Sompel"@vls , "Paolo Ciccarese"@it , "Robert Sanderson"@en ;
+      dc:description """The Open Annotation Core Data Model specifies an interoperable framework for creating associations between related resources, annotations, using a methodology that conforms to the Architecture of the World Wide Web. Open Annotations can easily be shared between platforms, with sufficient richness of expression to satisfy complex requirements while remaining simple enough to also allow for the most common use cases, such as attaching a piece of text to a single web resource.
+
+An Annotation is considered to be a set of connected resources, typically including a body and target, where the body is somehow about the target. The full model supports additional functionality, enabling semantic annotations, embedding content, selecting segments of resources, choosing the appropriate representation of a resource and providing styling hints for consuming clients."""@en ;
+      dc:title "Open Annotation Data Model"@en ;
+      dc-term:modified "2013-02-22T21:40:51+01:00"^^xsd:dateTime ;
+      owl:versionIRI <http://www.openannotation.org/spec/core/20130208/oa.owl> ;
+      owl:versionInfo "0.9.20130208" .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784>
+      a       :Tweet ;
+      :message "#Service5 experiencing delays of 10 mins due to roadworks on Union Grove and Holburn St."^^xsd:string ;
+      :messageTimeStamp "2015-03-10T15:24:29"^^xsd:dateTime .
+
+ptop:owns
+      a       owl:ObjectProperty ;
+      rdfs:comment "An agent fully owns an Object. In many cases this means also full control, unless the agent has transferred the control to another agent."@en ;
+      rdfs:label "Owns"@en ;
+      rdfs:subPropertyOf ptop:partiallyOwns .
+
+:NamedPlace
+      a       rdfs:Class ;
+      rdfs:label "Named place"^^xsd:string ;
+      rdfs:subClassOf <http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing> .
+
+<http://datex2.eu/schema/2/2_0/roadworks>
+      a       <http://datex2.eu/schema/2/2_0/VmsDatexPictogramEnum> .
+
+oa:List
+      a       owl:Class ;
+      rdfs:comment """A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted, and in a particular order. 
+
+oa:List can be used as the object of the object of the oa:hasBody, oa:hasTarget, oa:hasSelector, oa:hasState, oa:styledBy and oa:hasScope relationships, 
+
+There MUST be 2 or more oa:item relationships for each oa:List, with their order defined using the rdf:List construct of rdf:first/rdf:rest/rdf:nil.
+
+All the elements of the list should also be declared using oa:item, and each of the oa:items should appear at least once in the list."""@en ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "List"@en ;
+      rdfs:subClassOf oa:Composite .
+
+<http://sj.abdn.ac.uk/resource/naptan/stops/639000041>
+      a       <http://transport.data.gov.uk/def/naptan/Stop> .
+
+ptop:hasContactInfo
+      a       owl:ObjectProperty ;
+      rdfs:comment "The information by which a given object can be contacted. Usually an address, telefon number, e-mail address, etc."@en ;
+      rdfs:domain ptop:Object ;
+      rdfs:label "has Contact Info"@en ;
+      rdfs:range ptop:ContactInformation .
+
+<http://sj.abdn.ac.uk/resource/238186309>
+      a       <http://sj.abdn.ac.uk/ontology/Highway> .
+
+ptop:hasOldName
+      a       owl:DatatypeProperty ;
+      rdfs:comment "Relates an entity to its old name or alias that is no longer considered legitimate. For instance, Pekin is one of the old spellings of the name of the Chineese capital Beijing. The same happens to companies when they change their names and to womam when she gets married."@en ;
+      rdfs:label "has Old Name"@en ;
+      rdfs:subPropertyOf ptop:name .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/e665e0d6-c32d-4df8-8017-46722fbed2ee>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "Holburn St"^^xsd:string ;
+      oa:end  "87"^^xsd:string ;
+      oa:hasBody <http://sj.abdn.ac.uk/resource/9764475> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/e665e0d6-c32d-4df8-8017-46722fbed2ee> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "77"^^xsd:string .
+
+ptop:partiallyOwns
+      a       owl:ObjectProperty ;
+      rdfs:comment "Indicates that an Agent has some ownership over an object. It allows wide interpretations from \"I have a bike\" to \"John has shares in Fujitsu\"."@en ;
+      rdfs:label "Partially Owns"@en ;
+      rdfs:subPropertyOf ptop:partiallyControls .
+
+oa:Tag
+      a       owl:Class ;
+      rdfs:comment """A class assigned to the Body when it is a tag, such as a embedded text string with cnt:chars.
+
+Tags are typically keywords or labels, and used for organization, description or discovery of the resource being tagged. In the Semantic Web, URIs are used instead of strings to avoid the issue of polysemy where one word has multiple meanings, such usage MUST be indicated using the subclass oa:SemanticTag.
+
+Annotations that tag resources, either with text or semantic tags, SHOULD also have the oa:tagging motivation to make the reason for the Annotation more clear to applications, and MAY have other motivations as well."""@en ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "Tag"@en .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/8781a836-c549-4738-a79b-dc4415542110>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "Union Grove"^^xsd:string ;
+      oa:end  "72"^^xsd:string ;
+      oa:hasBody <http://sj.abdn.ac.uk/resource/naptan/stops/639000042> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/8781a836-c549-4738-a79b-dc4415542110> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "61"^^xsd:string .
+
+:numberOfTweets
+      a       owl:DatatypeProperty ;
+      rdfs:label "number of tweets"^^xsd:string .
+
+ptop:hasLeader
+      a       owl:ObjectProperty ;
+      rdfs:comment "A general relation between an organization and a person who rules or guides or inspires it in some sense. It may or may not be an employee, may or may not be formal etc. Typically there is a single leader of an organization."@en ;
+      rdfs:label "has Leader"@en ;
+      rdfs:range ptop:Person ;
+      rdfs:subPropertyOf ptop:hasMember .
+
+ptop:statedBy
+      a       owl:ObjectProperty ;
+      rdfs:comment "Relates a statement to the agent who made it. In the case of an offer, the agent is the offerer; in case of a contract, those are the parties. In case of written statements, the creator/author and the \"stater\" could be different agents, due to the fact that one agent my have prepared and/or published a statement on behalf of another."@en ;
+      rdfs:domain ptop:Statement ;
+      rdfs:label "Stated by"@en ;
+      rdfs:range ptop:Agent .
+
+oa:FragmentSelector
+      a       owl:Class ;
+      rdfs:comment """A Selector which describes the segment of interest in a representation, through the use of the fragment identifier component of a URI.
+
+It is RECOMMENDED to use oa:FragmentSelector as the selector on a Specific Resource rather than annotating the fragment URI directly, in order to improve discoverability of annotation on the Source.
+
+The oa:FragmentSelector MUST have exactly 1 rdf:value property, containing the fragment identifier component of a URI that describes the segment of interest in the resource, excluding the initial \"#\".
+
+The Fragment Selector SHOULD have a dcterms:conformsTo relationship with the object being the specification that defines the syntax of the fragment, for instance <http://tools.ietf.org/rfc/rfc3236> for HTML fragments. """@en ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "FragmentSelector"@en ;
+      rdfs:subClassOf oa:Selector .
+
+ptop:latitude
+      a       owl:DatatypeProperty ;
+      rdfs:comment "In degrees, minutes, and seconds: no sign or (+) = North; negative sign (-) = South."@en ;
+      rdfs:domain ptop:Location ;
+      rdfs:label "Latitude"@en .
+
+<http://www.ontotext.com/proton/protontop>
+      a       owl:Ontology ;
+      rdfs:comment "PROTON (Proto Ontology), Top module" ;
+      rdfs:label "Proton Ontology" ;
+      dc:creator "Ontotext (Kiril Simov, Atanas Kiryakov, Ivan Terziev, Dimitar Manov, Mariana Damova Svetoslav Petrov)" ;
+      dc:rights "Proton ontology is available under the Creative Commons Attribution 3.0 Unported license; see http://creativecommons.org/licenses/by/3.0/. In a nutshell, you are free to copy, distribute and transmit the work; to remix/adapt the work (e.g. to import the ontology and create specializations of its elements), as long as you attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work). Proper Attribution: Simply include the statement This work is based on Proton ontology, developed by Ontotext and link back to http://www.ontotext.com/proton-ontology" ;
+      dc:subject "Upper-level ontology with extensions to handle Linked Open Data (LOD)" ;
+      dc:title "Proton" ;
+      owl:versionInfo "3.0" .
+
+ptop:Language
+      a       owl:Class ;
+      rdfs:comment "A spoken or written natural language"@en ;
+      rdfs:label "Language"@en ;
+      rdfs:subClassOf ptop:Abstract .
+
+ptop:subTopicOf
+      a       owl:TransitiveProperty , owl:ObjectProperty ;
+      rdfs:comment "A relation from less general to more general topic. Defined to be transitive via rule."@en ;
+      rdfs:domain ptop:Topic ;
+      rdfs:label "Subtopic of"@en ;
+      rdfs:range ptop:Topic .
+
+ptop:systemPrimitive
+      a       owl:AnnotationProperty ;
+      rdfs:comment "The system classes and properties are used to encode system specific information. They, as well as their instances and related information, should usually not be presented to the end-user. In practice, user-interface and visualization modules, can filter such primitives. All system primitives with this property should be marked with string value \"T\"."@en ;
+      rdfs:label "System Primitive"@en .
+
+oa:commenting
+      a       oa:Motivation , owl:NamedIndividual ;
+      rdfs:comment "The motivation that represents a commentary about or review of the target resource(s). For example to provide a commentary about a particular PDF."@en ;
+      skos:inScheme oa:motivationScheme ;
+      skos:prefLabel "commenting"@en .
+
+oa:hasScope
+      a       owl:ObjectProperty ;
+      rdfs:comment """The relationship between a Specific Resource and the resource that provides the scope or context for it in this Annotation.
+
+There MAY be 0 or more hasScope relationships for each Specific Resource."""@en ;
+      rdfs:domain oa:SpecificResource ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "hasScope"@en .
+
+<http://sj.abdn.ac.uk/resource/naptan/stops/639000042>
+      a       <http://transport.data.gov.uk/def/naptan/Stop> .
+
+ptop:informationResourceRights
+      a       owl:DatatypeProperty ;
+      rdfs:comment "Information about rights held in and over the resource. Typically, Rights will contain a rights management statement for the resource, or reference to a service providing such information. Rights information often encompasses Intellectual Property Rights (IPR), Copyright, and various Property Rights. If the Rights element is absent, no assumptions should be made about any rights held in or over the resource. DC2003ISO"@en ;
+      rdfs:domain ptop:InformationResource ;
+      rdfs:label "Information Resource Rights"@en .
+
+<http://transport.data.gov.uk/def/naptan/Stop>
+      a       owl:Class ;
+      rdfs:subClassOf ptop:Entity .
+
+oa:TextPositionSelector
+      a       owl:Class ;
+      rdfs:comment """An oa:Selector which describes a range of text based on its start and end positions.
+
+The text MUST be normalized before counting characters. For a Selector that works from the bitstream rather than the rendered characters, see oa:DataPositionSelector.
+
+Each oa:TextPositionSelector MUST have exactly 1 oa:start property.
+
+Each oa:TextPositionSelector MUST have exactly 1 oa:end property."""@en ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "TextPositionSelector"@en ;
+      rdfs:subClassOf oa:Selector .
+
+oa:questioning
+      a       oa:Motivation , owl:NamedIndividual ;
+      rdfs:comment "The motivation that represents asking a question about the target resource(s). For example to ask for assistance with a particular section of text, or question its veracity."@en ;
+      skos:inScheme oa:motivationScheme ;
+      skos:prefLabel "questioning"@en .
+
+ptop:title
+      a       owl:DatatypeProperty ;
+      rdfs:comment "A name given to an information resource. Typically, title will be a name by which the resource is formally known. (DC2003ISO, Title there)"@en ;
+      rdfs:domain ptop:InformationResource ;
+      rdfs:label "Title"@en ;
+      rdfs:subPropertyOf ptop:name .
+
+<http://sj.abdn.ac.uk/resource/naptan/stops/639000022>
+      a       <http://transport.data.gov.uk/def/naptan/Stop> .
+
+<http://sj.abdn.ac.uk/resource/naptan/stops/639000032>
+      a       <http://transport.data.gov.uk/def/naptan/Stop> .
+
+ptop:isLegalEntity
+      a       owl:DatatypeProperty ;
+      rdfs:comment "Determines whether a particular Agent is a legal entity. The range should be constrained to Boolean. Agents, for which the value is True, correspond to instances of http://www.cyc.com/2003/04/01/cyc#LegalAgent, which is defined as follows \"Each instance of #LegalAgent is an agent who has some status in a particular legal system. At the very least, such an agent is recognized by some legal authority as having some kinds of rights and/or responsibilities as an agent (e.g., #citizens of Germany), ... \". In PROTON, it is modeled as property in order to avoid multiple-inheritance of classes and/or multiple classifications of instances."@en ;
+      rdfs:domain ptop:Agent ;
+      rdfs:label "is Legal Entity"@en .
+
+<http://datex2.eu/schema/2/2_0/TimePrecisionEnum>
+      a       owl:Class ;
+      rdfs:subClassOf ptop:Entity .
+
+ptop:heldTo
+      a       owl:DatatypeProperty ;
+      rdfs:comment "When the holder released a given position"@en ;
+      rdfs:domain ptop:JobPosition ;
+      rdfs:label "Held to"@en ;
+      rdfs:subPropertyOf ptop:endTime .
+
+ptop:roleHolder
+      a       owl:ObjectProperty ;
+      rdfs:comment "The relation between a role and the entity that 'plays' a role in a given happening."@en ;
+      rdfs:domain ptop:Role ;
+      rdfs:label "Role Holder"@en ;
+      rdfs:range ptop:Entity .
+
+oa:styledBy
+      a       owl:ObjectProperty ;
+      rdfs:comment """The relationship between a oa:Annotation and a oa:Style.
+
+There MAY be 0 or 1 styledBy relationships for each Annotation.
+
+If there are multiple Style resources that must be associated with the Annotation, then the use of the Multiplicity Constructs oa:Choice, oa:Composite or oa:List is RECOMMENDED."""@en ;
+      rdfs:domain oa:Annotation ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "styledBy"@en ;
+      rdfs:range oa:Style .
+
+<http://datex2.eu/schema/2/2_0/minute>
+      a       <http://datex2.eu/schema/2/2_0/TimePrecisionEnum> .
+
+ptop:roleIn
+      a       owl:ObjectProperty ;
+      rdfs:comment "Relates a role to a happening, conditioned and affected by the role. Usually, the participants of a happening 'play' one or more roles in it."@en ;
+      rdfs:domain ptop:Role ;
+      rdfs:label "Role in"@en ;
+      rdfs:range ptop:Happening .
+
+oa:serializedAt
+      a       owl:DatatypeProperty ;
+      rdfs:comment """The time at which the agent referenced by oa:serializedBy generated the first serialization of the Annotation, and any subsequent substantially different one. The annotation graph MUST have changed for this property to be updated, and as such represents the last modified datestamp for the Annotation. This might be used to determine if it should be re-imported into a triplestore when discovered. 
+
+There MAY be exactly 1 oa:serializedAt property per Annotation, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified.
+"""@en ;
+      rdfs:domain oa:Annotation ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "serializedAt"@en ;
+      rdfs:range xsd:dateTimeStamp .
+
+rdfs:comment
+      a       owl:AnnotationProperty .
+
+oa:TimeState
+      a       owl:Class ;
+      rdfs:comment """A resource which describes how to retrieve a representation of the Source resource that is temporally appropriate for the Annotation.
+
+There MUST be at least one of oa:cachedSource or oa:when specified. If there is more than 1, each gives an alternative copy of the representation."""@en ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "TimeState"@en ;
+      rdfs:subClassOf oa:State .
+
+ptop:populationCount
+      a       owl:DatatypeProperty ;
+      rdfs:comment "The number of citizens of a location."@en ;
+      rdfs:domain ptop:Location ;
+      rdfs:label "Population Count"@en .
+
+ptop:hasSubject
+      a       owl:ObjectProperty ;
+      rdfs:comment "The topic of content of a given resource. Comment: Typically, the Subject will be expressed as keywords, key phrases, or classification codes that describe the topic of resource. Recommended best practice is to select a value from a controlled vocabulary or formal classification scheme. (DC2003ISO, Subject)"@en ;
+      rdfs:domain ptop:InformationResource ;
+      rdfs:label "has Subject"@en ;
+      rdfs:range ptop:Topic ;
+      ptop:transitiveOver ptop:subTopicOf .
+
+oa:Motivation
+      a       owl:Class ;
+      rdfs:comment """The Motivation for creating an Annotation, indicated with oa:motivatedBy, is a reason for its creation, and might include things like oa:replying to another annotation, oa:commenting on a resource, or oa:linking to a related resource.
+
+Each Annotation SHOULD have at least one oa:motivatedBy relationship to an instance of oa:Motivation, which is a subClass of skos:Concept."""@en ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "Motivation"@en ;
+      rdfs:subClassOf skos:Concept .
+
+<http://sj.abdn.ac.uk/resource/naptan/stops/639000031>
+      a       <http://transport.data.gov.uk/def/naptan/Stop> .
+
+<http://www.ontotext.com/kim/2006/05/wkb#Number_T.51>
+      a       <http://proton.semanticweb.org/2006/05/protont#Number> .
+
+<http://sj.abdn.ac.uk/resource/9764475>
+      a       <http://sj.abdn.ac.uk/ontology/Highway> .
+
+<http://sj.abdn.ac.uk/resource/naptan/stops/639000021>
+      a       <http://transport.data.gov.uk/def/naptan/Stop> .
+
+<http://vocab.org/transit/terms/service>
+      a       owl:Class ;
+      rdfs:subClassOf ptop:Entity .
+
+ptop:nimaGNSUniqueFeatureIndentifier
+      a       owl:DatatypeProperty ;
+      rdfs:comment "The Unique Feature Identifier from the NIMA GNS. A number which uniquely identifies the location."@en ;
+      rdfs:domain ptop:Location ;
+      rdfs:label "NIMA GNS Unique Feature Identifier"@en .
+
+ptop:resourceFormat
+      a       owl:DatatypeProperty ;
+      rdfs:comment "The physical or digital manifestation of the resource. Typically, Format will include the media-type or dimensions of the resource. Format may be used to identify the software, hardware, or other equipment needed to display or operate the resource. Examples of dimensions include size and duration. Recommended best practice is to select a value from a controlled vocabulary (for example, the list of Internet Media Types [MIME] defining computer media formats). DC2003ISO"@en ;
+      rdfs:domain ptop:InformationResource ;
+      rdfs:label "Resource Format"@en .
+
+ptop:Situation
+      a       owl:Class ;
+      rdfs:comment "A static event or situation, like \"sitting on a chair\" or \"holding position\". Typically, those are temporarily homogenous, i.e. their nature is not expected/required to change with their duration. As a happening, they used to happen/take place/be true for some periods of time and may or may not have a well-defined space extension."@en ;
+      rdfs:label "Situation"@en ;
+      rdfs:subClassOf ptop:Happening .
+
+:talksAboutNeutrally
+      a       owl:ObjectProperty ;
+      rdfs:label "talks about neutrally"^^xsd:string ;
+      rdfs:subPropertyOf :talksAbout .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/0219661f-fff4-49f0-b156-00bae989c1f9>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "Holburn St"^^xsd:string ;
+      oa:end  "87"^^xsd:string ;
+      oa:hasBody <http://sj.abdn.ac.uk/resource/238186309> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/0219661f-fff4-49f0-b156-00bae989c1f9> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "77"^^xsd:string .
+
+ptop:Number
+      a       owl:Class ;
+      rdfs:comment "Any given number, within the meaning that a number is one of the following: a concept of quantity derived from zero and units; or a numeral (or a string of numerals) used for identification (\"she refused to give them her Social Security number\"); or a phone number, etc."@en ;
+      rdfs:label "Number"@en ;
+      rdfs:subClassOf ptop:Abstract .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/63c48001-2dc2-4cdf-8fd9-da8f3fe0070b>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "Union Grove"^^xsd:string ;
+      oa:end  "72"^^xsd:string ;
+      oa:hasBody <http://sj.abdn.ac.uk/resource/8602433> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/63c48001-2dc2-4cdf-8fd9-da8f3fe0070b> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "61"^^xsd:string .
+
+ptop:Document
+      a       owl:Class ;
+      rdfs:comment "The information content of any sort of document. The tangible aspects are ignored. It is usually a document in free text with no formal structure or semantics."@en ;
+      rdfs:label "Document"@en ;
+      rdfs:subClassOf ptop:InformationResource .
+
+ptop:Group
+      a       owl:Class ;
+      rdfs:comment "A group of agents that is not organized in any way. It could be the group of people in a bus or the shareholders of a company."@en ;
+      rdfs:label "Group"@en ;
+      rdfs:subClassOf ptop:Agent .
+
+<http://sj.abdn.ac.uk/resource/9762151>
+      a       <http://sj.abdn.ac.uk/ontology/Highway> .
+
+<http://transport.data.gov.uk/def/naptan/NptgLocality>
+      a       owl:Class ;
+      rdfs:subClassOf ptop:Entity .
+
+oa:suffix
+      a       owl:DatatypeProperty ;
+      rdfs:comment """The snippet of text that occurs immediately after the text which is being selected. 
+
+See oa:TextQuoteSelector."""@en ;
+      rdfs:domain oa:Selector ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "suffix"@en .
+
+ptop:longitude
+      a       owl:DatatypeProperty ;
+      rdfs:comment "In degrees, minutes, and seconds: no sign or (+) = East; negative sign (-) = West."@en ;
+      rdfs:domain ptop:Location ;
+      rdfs:label "Longitude"@en .
+
+ptop:hasChild
+      a       owl:ObjectProperty ;
+      rdfs:comment "The relation of a parent to his/her child."@en ;
+      rdfs:label "has Child"@en ;
+      rdfs:subPropertyOf ptop:hasRelative .
+
+ptop:derivedFromSource
+      a       owl:ObjectProperty ;
+      rdfs:comment "A reference to a resource from which the present resource is derived. The present resource may be derived from the Source resource in whole or in part. Recommended best practice is to identify the referenced resource by means of a string or number conforming to a formal identification system. DC2003ISO"@en ;
+      rdfs:domain ptop:InformationResource ;
+      rdfs:label "Derived from Source"@en ;
+      rdfs:range ptop:InformationResource .
+
+<http://www.ontotext.com/kim/2006/05/wkb#Number_T.93>
+      a       <http://proton.semanticweb.org/2006/05/protont#Number> .
+
+oa:State
+      a       owl:Class ;
+      rdfs:comment """A resource which describes how to retrieve an appropriate representation of the Source resource, indicated with oa:hasState from the Specific Resource.
+
+This class is not used directly in Annotations, only its subclasses are.
+
+The Specifier's description MAY be conveyed as an external or embedded resource (cnt:Content), or as RDF properties within the graph. The description SHOULD use existing standards whenever possible. If the Specifier has an HTTP URI, then its description, and only its description, MUST be returned when the URI is dereferenced."""@en ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "State"@en .
+
+<http://sj.abdn.ac.uk/resource/238186305>
+      a       <http://sj.abdn.ac.uk/ontology/Highway> .
+
+oa:cachedSource
+      a       owl:ObjectProperty ;
+      rdfs:comment "A link to a copy of the Source resource's representation appropriate for the Annotation, typically a copy of the original at the time that the Annotation was created"@en ;
+      rdfs:domain oa:TimeState ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "cachedSource"@en .
+
+ptop:Person
+      a       owl:Class ;
+      rdfs:comment "A Person is an agent, which is an individual who is a human being (i.e. any living or not alive member of the family Hominidae). Wordnet 2.0."@en ;
+      rdfs:label "Person"@en ;
+      rdfs:subClassOf ptop:Agent .
+
+ptop:hasPosition
+      a       owl:ObjectProperty ;
+      rdfs:comment "Relation between a person and his/her job position."@en ;
+      rdfs:domain ptop:Person ;
+      rdfs:label "has Position"@en ;
+      rdfs:range ptop:JobPosition ;
+      owl:inverseOf ptop:holder .
+
+ptop:isOwnedBy
+      a       owl:ObjectProperty ;
+      rdfs:comment "The relation between an object and an agent that is the owner of that object."@en ;
+      rdfs:domain ptop:Object ;
+      rdfs:label "is Owned by"@en ;
+      rdfs:range ptop:Agent .
+
+<http://datex2.eu/schema/2/2_0/VmsDatexPictogramEnum>
+      a       owl:Class ;
+      rdfs:subClassOf ptop:Entity .
+
+oa:linking
+      a       oa:Motivation , owl:NamedIndividual ;
+      rdfs:comment "The motivation that represents an untyped link to a resource related to the target."@en ;
+      skos:inScheme oa:motivationScheme ;
+      skos:prefLabel "linking"@en .
+
+ptop:validFrom
+      a       owl:DatatypeProperty ;
+      rdfs:comment "The time when a statement is made valid. The happing of making the statement valid is not explicitly represented in Proton. If it is necessary for the task the ontology needs to be extented."@en ;
+      rdfs:domain ptop:Statement ;
+      rdfs:label "Valid from"@en .
+
+oa:CssStyle
+      a       owl:Class ;
+      rdfs:comment """A resource which describes styles for resources participating in the Annotation using CSS.
+
+Specific Resources MAY be assigned a CSS style class using oa:styleClass.
+
+The CSS resource MAY have its own dereferencable URI that provides the information. For example, \"Style1\" in the diagram below might actually have the URI \"http://www.example.com/styles/annotations.css\". It MAY be embedded within the Annotation using the inline constructions described in Embedding Resources."""@en ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "CssStyle"@en ;
+      rdfs:subClassOf oa:Style .
+
+:TwitterUser
+      a       owl:Class ;
+      rdfs:label "Twitter user"^^xsd:string ;
+      rdfs:subClassOf <http://rdfs.org/sioc/ns#UserAccount> .
+
+ptop:hasContributor
+      a       owl:ObjectProperty ;
+      rdfs:comment "An agent responsible for making contributions to the content of a resource. Examples of Contributor include a person, an organization, or a service. DC2003ISO"@en ;
+      rdfs:domain ptop:InformationResource ;
+      rdfs:label "has Contributor"@en ;
+      rdfs:range ptop:Agent .
+
+ptop:involvedIn
+      a       owl:ObjectProperty ;
+      rdfs:comment "The participating entities in a given happening that are agents. Participation is usually via some role."@en ;
+      rdfs:domain ptop:Agent , ptop:Entity ;
+      rdfs:label "Involved in"@en ;
+      rdfs:range ptop:Happening ;
+      rdfs:subPropertyOf ptop:involvedEntityIn .
+
+oa:bookmarking
+      a       oa:Motivation , owl:NamedIndividual ;
+      rdfs:comment "The motivation that represents the creation of a bookmark to the target resources or recorded point or points within one or more resources. For example, an Annotation that bookmarks the point in a text where the reader finished reading. Bookmark Annotations may or may not have a Body resource."@en ;
+      skos:inScheme oa:motivationScheme ;
+      skos:prefLabel "bookmarking"@en .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/9f6a2481-322b-46b3-abc9-1b261983d07a>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "#Service5"^^xsd:string ;
+      oa:end  "9"^^xsd:string ;
+      oa:hasBody <http://sj.abdn.ac.uk/resource/basemap/busLines/ABDN_5> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/9f6a2481-322b-46b3-abc9-1b261983d07a> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "0"^^xsd:string .
+
+oa:annotatedBy
+      a       owl:ObjectProperty ;
+      rdfs:comment """The object of the relationship is a resource that identifies the agent responsible for creating the Annotation. This may be either a human or software agent. 
+
+There SHOULD be exactly 1 oa:annotatedBy relationship per Annotation, but MAY be 0 or more than 1, as the Annotation may be anonymous, or multiple agents may have worked together on it.
+
+It is RECOMMENDED to use these and other FOAF terms to describe agents: foaf:Person, prov:SoftwareAgent, foaf:Organization, foaf:name, foaf:mbox, foaf:openid, foaf:homepage"""@en ;
+      rdfs:domain oa:Annotation ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "annotatedBy"@en ;
+      rdfs:subPropertyOf prov:wasAttributedTo .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/002ff2ef-ddfc-4e81-a779-7ca4fa488794>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "Union Grove"^^xsd:string ;
+      oa:end  "72"^^xsd:string ;
+      oa:hasBody <http://sj.abdn.ac.uk/resource/naptan/stops/639000021> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/002ff2ef-ddfc-4e81-a779-7ca4fa488794> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "61"^^xsd:string .
+
+ptop:Service
+      a       owl:Class ;
+      rdfs:comment "Any sort of service, ranging from a scheduled flight or train services to a weather forecast information/web serivce. Many services could be considered agents (usually software services)."@en ;
+      rdfs:label "Service"@en ;
+      rdfs:subClassOf ptop:Object .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/9ea07fe5-63be-4ce8-ba07-d0c1b115733e>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "Union Grove"^^xsd:string ;
+      oa:end  "72"^^xsd:string ;
+      oa:hasBody <http://sj.abdn.ac.uk/resource/naptan/stops/639000012> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/9ea07fe5-63be-4ce8-ba07-d0c1b115733e> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "61"^^xsd:string .
+
+rdfs:label
+      a       owl:AnnotationProperty .
+
+ptop:Entity
+      a       owl:Class ;
+      rdfs:comment "Any sort of an entity of interest, usually something existing, happening, or purely abstract. Entities may have several - more than one - names or aliases."@en ;
+      rdfs:label "Entity"@en .
+
+ptop:validUntil
+      a       owl:DatatypeProperty ;
+      rdfs:comment "The time when a statement is made invalid. The happening of making the statement invalid is not explicitly represented in Proton. If it is necessary for the task the ontology should be extented."@en ;
+      rdfs:domain ptop:Statement ;
+      rdfs:label "Valid until"@en .
+
+oa:start
+      a       owl:DatatypeProperty ;
+      rdfs:comment """The starting position of the segment of text or bytes. The first character/byte in the full text/stream is position 0. The character/byte indicated at position oa:start is included within the selected segment. 
+
+See oa:DataPositionSelector and oa:TextPositionSelector."""@en ;
+      rdfs:domain oa:Selector ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "start"@en ;
+      rdfs:range xsd:nonNegativeInteger .
+
+<http://sj.abdn.ac.uk/resource/8602433>
+      a       <http://sj.abdn.ac.uk/ontology/Highway> .
+
+ptop:description
+      a       owl:DatatypeProperty ;
+      rdfs:comment "A textual description of an entity. Usually a free text in some natural language. As defined in DC2003ISO for InformationResources. In a sense, it is a specializatoin of rdf:comment"@en ;
+      rdfs:domain ptop:Entity ;
+      rdfs:label "Description"@en .
+
+ptop:Abstract
+      a       owl:Class ;
+      rdfs:comment "Something, which neither happens nor exists, e.g. a number or a chemical compound formula. Those are usually some symbols, invented to refer to general notions."@en ;
+      rdfs:label "Abstract"@en ;
+      rdfs:subClassOf ptop:Entity .
+
+ptop:laconicDescription
+      a       owl:DatatypeProperty ;
+      rdfs:comment "An extremely short (typically, single sentence) description of an entity"@en ;
+      rdfs:label "Laconic Description"@en ;
+      rdfs:subPropertyOf ptop:description .
+
+:numberOfNegativeTweets
+      a       owl:DatatypeProperty ;
+      rdfs:label "number of negative tweets"^^xsd:string .
+
+ptop:partiallyControls
+      a       owl:ObjectProperty ;
+      rdfs:comment "Any sort of partial control an agent has with respect to an object."@en ;
+      rdfs:domain ptop:Agent ;
+      rdfs:label "Partially Controls"@en ;
+      rdfs:range ptop:Object .
+
+ptop:GeneralTerm
+      a       owl:Class ;
+      rdfs:comment "General concept with well defined (idiomatic) meaning which can have a set of distinct lexical items (surface realizations) associated with it. Examples are: F2F, I18N, P2P, B2B, VIP, ASAP, Semantic Web"@en ;
+      rdfs:label "General Term"@en ;
+      rdfs:subClassOf ptop:Abstract .
+
+oa:end
+      a       owl:DatatypeProperty ;
+      rdfs:comment """The end position of the segment of text or bytes. The first character/byte in the full text/stream is position 0. The character/byte indicated at position oa:end is NOT included within the selected segment. 
+
+See oa:DataPositionSelector and oa:oa:TextPositionSelector."""@en ;
+      rdfs:domain oa:Selector ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "end"@en ;
+      rdfs:range xsd:nonNegativeInteger .
+
+oa:SvgSelector
+      a       owl:Class ;
+      rdfs:comment """A Selector which selects an area specified as an SVG shape.
+
+The SVG document should either be retrievable by resolving the URI of this resource, or be included as an Embedded Resource using cnt:Content.
+
+It is RECOMMENDED that the document contain only a single shape element and that element SHOULD be one of: path, rect, circle, ellipse, polyline, polygon or g. The g element SHOULD ONLY be used to construct a multi-element group, for example to define a donut shape requiring an outer circle and a clipped inner circle.
+
+The dimensions of both the shape and the SVG canvas MUST be relative to the dimensions of the Source resource. For example, given an image which is 600 pixels by 400 pixels, and the desired section is a circle of 100 pixel radius at the center of the image, then the SVG element would be: <circle cx=\"300\" cy=\"200\" r=\"100\"/>
+
+It is NOT RECOMMENDED to include style information within the SVG element, nor Javascript, animation, text or other non shape oriented information. Clients SHOULD ignore such information if present."""@en ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "SvgSelector"@en ;
+      rdfs:subClassOf oa:Selector .
+
+<http://sj.abdn.ac.uk/resource/129736951>
+      a       <http://sj.abdn.ac.uk/ontology/Highway> .
+
+ptop:subsidiaryOrganizationOf
+      a       owl:ObjectProperty ;
+      rdfs:comment "Indicates that an organization is in some sense part of another organization. This necessarily requires structural and organizational relations and may or may not indicate ownership. Its reverse, parentOrganizationOf, is a special case of partial control."@en ;
+      rdfs:domain ptop:Organization ;
+      rdfs:label "Subsidiary Organization of"@en ;
+      rdfs:range ptop:Organization ;
+      rdfs:subPropertyOf ptop:partOf .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/e274e54a-c18e-454a-8f38-dea8b8a85aca>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "Union Grove"^^xsd:string ;
+      oa:end  "72"^^xsd:string ;
+      oa:hasBody <http://sj.abdn.ac.uk/resource/naptan/stops/639000031> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/e274e54a-c18e-454a-8f38-dea8b8a85aca> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "61"^^xsd:string .
+
+:posts
+      a       owl:ObjectProperty ;
+      rdfs:label "posts"^^xsd:string .
+
+ptop:hasRelative
+      a       owl:ObjectProperty , owl:SymmetricProperty ;
+      rdfs:comment "Relation between a person and his/her relatives - mother, father, brother, sister, child, etc."@en ;
+      rdfs:domain ptop:Person ;
+      rdfs:label "has Relative"@en ;
+      rdfs:range ptop:Person .
+
+<http://sj.abdn.ac.uk/ontology/Highway>
+      a       owl:Class ;
+      rdfs:subClassOf ptop:Entity .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/35e332ca-e005-42c0-b197-26d4955f77a2>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "Holburn St"^^xsd:string ;
+      oa:end  "87"^^xsd:string ;
+      oa:hasBody <http://sj.abdn.ac.uk/resource/94626726> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/35e332ca-e005-42c0-b197-26d4955f77a2> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "77"^^xsd:string .
+
+oa:Choice
+      a       owl:Class ;
+      rdfs:comment """A multiplicity construct that conveys to a consuming application that it should select one of the constituent resources to display to the user, and not render/use all of them. 
+
+oa:Choice can be used as the object of the object of the oa:hasBody, oa:hasTarget, oa:hasSelector, oa:hasState, oa:styledBy and oa:hasScope relationships, 
+
+There MUST be 1 or more oa:item relationships for each oa:Choice.
+
+There SHOULD be exactly 1 default relationship for each Choice."""@en ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "Choice"@en ;
+      rdfs:subClassOf rdf:Alt .
+
+:talksAbout
+      a       owl:ObjectProperty ;
+      rdfs:label "talks about"^^xsd:string .
+
+oa:default
+      a       owl:ObjectProperty ;
+      rdfs:comment """The constituent resource of a oa:Choice to use as a default option, if there is no other means to determine which would be most appropriate.
+
+There SHOULD be exactly 1 default relationship for each Choice."""@en ;
+      rdfs:domain oa:Choice ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "default"@en ;
+      rdfs:subPropertyOf oa:item .
+
+<http://www.dotrural.ac.uk/irp/uploads/ontologies/bottari>
+      a       owl:Ontology ;
+      owl:imports <http://rdfs.org/sioc/ns> , <http://www.w3.org/2003/01/geo/wgs84_pos> , <http://rdfs.org/sioc/types> ;
+      owl:versionInfo "Created with TopBraid Composer"^^xsd:string .
+
+:message
+      a       owl:DatatypeProperty ;
+      rdfs:label "message"^^xsd:string .
+
+oa:equivalentTo
+      a       owl:ObjectProperty ;
+      rdfs:comment """The subject and object resources of the oa:equivalentTo relationship represent the same resource, but potentially have different metadata such as oa:serializedBy, oa:serializedAt and serialization format.  oa:equivalentTo is a symmetrical and transitive relationship; if A oa:equivalentTo B, then it is also true that B oa:equivalent A; and that if B oa:equivalentTo C, then it is also true that A oa:equivalentTo C. 
+
+The Annotation MAY include 0 or more instances of the oa:equivalentTo relationship between copies of the Annotation or other resources, and SHOULD include as many as are available.
+
+If a system publishes an embedded resource (a cnt:Content) at a new HTTP URI, then it SHOULD express the oa:equivalentTo relationship between the resource's URN and the new URI from which it is available."""@en ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "equivalentTo"@en ;
+      rdfs:subPropertyOf prov:alternateOf .
+
+oa:DataPositionSelector
+      a       owl:Class ;
+      rdfs:comment """A Selector which describes a range of data based on its start and end positions within the byte stream of the representation.
+
+Each DataPositionSelector MUST have exactly 1 oa:start property.
+
+Each TextPositionSelector MUST have exactly 1 oa:end property.
+
+See oa:TextPositionSelector for selection at normalized character level rather than bytestream level."""@en ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "DataPositionSelector"@en ;
+      rdfs:subClassOf oa:Selector .
+
+ptop:controls
+      a       owl:ObjectProperty ;
+      rdfs:comment "Indicates that an Agent has full control over an object. This is typically the case of wholly-owned subsidiaries and physicall possession of goods."@en ;
+      rdfs:label "Controls"@en ;
+      rdfs:subPropertyOf ptop:partiallyControls .
+
+ptop:TimeInterval
+      a       owl:Class ;
+      rdfs:comment "This is a general time expression, which refers to a particular period of time, an interval. Repeating periods (like Spring or Christmas) are not time intervals, while specific instances of them (like the Spring of 1944) are. A TimeInterval could collapse, in very special cases, to a time point, however in this case, in contrast to the Abstract time point (referring to some time during the day), it should be bound to a specific date, i.e. to represent a timestamp."@en ;
+      rdfs:label "Time Interval"@en ;
+      rdfs:subClassOf ptop:Happening .
+
+ptop:hasDate
+      a       owl:DatatypeProperty ;
+      rdfs:comment "Typically, Date will be associated with the creation or availability of the resource. Recommended best practice for encoding the date value is defined in a profile of ISO 8601 [W3CDTF] and includes (among others) dates of the form YYYY-MM-DD. For official documents, it could be the date of signature. It can also contain a java timestamp. Usually, time is connected to a happening (event/situation) in which the information resource is a participation entity. These include: creation of the information resource, its modification or other important happening. Very often such happening is in the background knowledge and the modeling of domain task does not require the explicit representation of this happening. If it plays important role in the model domain or for the task, then the user needs to extend the ontology in an appropriate way."@en ;
+      rdfs:domain ptop:InformationResource ;
+      rdfs:label "has Date"@en .
+
+<http://sj.abdn.ac.uk/resource/naptan/stops/639000011>
+      a       <http://transport.data.gov.uk/def/naptan/Stop> .
+
+oa:replying
+      a       oa:Motivation , owl:NamedIndividual ;
+      rdfs:comment "The motivation that represents a reply to a previous statement, either an Annotation or another resource. For example providing the assistance requested in the above."@en ;
+      skos:inScheme oa:motivationScheme ;
+      skos:prefLabel "replying"@en .
+
+oa:exact
+      a       owl:DatatypeProperty ;
+      rdfs:comment """A copy of the text which is being selected, after normalization.
+
+See oa:TextQuoteSelector."""@en ;
+      rdfs:domain oa:Selector ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "exact"@en .
+
+oa:tagging
+      a       oa:Motivation , owl:NamedIndividual ;
+      rdfs:comment "The motivation that represents adding a Tag on the target resource(s). One or more of the bodies of the annotation should be typed as a oa:Tag or oa:SemanticTag."@en ;
+      skos:inScheme oa:motivationScheme ;
+      skos:prefLabel "tagging"@en .
+
+<http://sj.abdn.ac.uk/resource/238186302>
+      a       <http://sj.abdn.ac.uk/ontology/Highway> .
+
+ptop:JobPosition
+      a       owl:Class ;
+      rdfs:comment "The situation of a person, holding a job (employment) position within an organization. The sub-classes of this class define a number of different types of positions."@en ;
+      rdfs:label "Job Position"@en ;
+      rdfs:subClassOf ptop:SocialPosition .
+
+<http://sj.abdn.ac.uk/resource/basemap/busLines/ABDN_5>
+      a       <http://vocab.org/transit/terms/service> .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/a1f900df-5dcf-4aec-9791-571bf63a05a5>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "Union Grove"^^xsd:string ;
+      oa:end  "72"^^xsd:string ;
+      oa:hasBody <http://sj.abdn.ac.uk/resource/71958357> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/a1f900df-5dcf-4aec-9791-571bf63a05a5> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "61"^^xsd:string .
+
+:Ambience
+      a       rdfs:Class ;
+      rdfs:label "Ambience"^^xsd:string .
+
+oa:Composite
+      a       owl:Class ;
+      rdfs:comment """A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted. 
+
+oa:Composite can be used as the object of the object of the oa:hasBody, oa:hasTarget, oa:hasSelector, oa:hasState, oa:styledBy and oa:hasScope relationships, 
+
+There MUST be 2 or more oa:item relationships for each oa:Composite."""@en ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "Composite" ;
+      rdfs:subClassOf rdf:Bag .
+
+oa:styleClass
+      a       owl:DatatypeProperty ;
+      rdfs:comment """The string name of the class used in the CSS description that should be applied to the Specific Resource.
+
+There MAY be 0 or more styleClass properties on a Specific Resource.
+
+See oa:CssStyle."""@en ;
+      rdfs:domain oa:SpecificResource ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "styleClass"@en .
+
+:ambience
+      a       owl:ObjectProperty ;
+      rdfs:label "ambience"^^xsd:string .
+
+oa:serializedBy
+      a       owl:ObjectProperty ;
+      rdfs:comment """The object of the relationship is the agent, likely software, responsible for generating the serialization of the Annotation's serialization. 
+
+It is RECOMMENDED to use these and other FOAF terms to describe agents: foaf:Person, prov:SoftwareAgent, foaf:Organization, foaf:name, foaf:mbox, foaf:openid, foaf:homepage
+
+There MAY be 0 or more oa:serializedBy relationships per Annotation."""@en ;
+      rdfs:domain oa:Annotation ;
+      rdfs:isDefinedBy oa: ;
+      rdfs:label "serializedBy"@en ;
+      rdfs:subPropertyOf prov:wasAttributedTo .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/5d1cceb2-26e5-4d43-b6a5-336f341bf0a0>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "Union Grove"^^xsd:string ;
+      oa:end  "72"^^xsd:string ;
+      oa:hasBody <http://sj.abdn.ac.uk/resource/naptan/stops/639000011> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/5d1cceb2-26e5-4d43-b6a5-336f341bf0a0> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "61"^^xsd:string .
+
+<http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/47781589-bb67-44dd-bbb2-a39d40cee855>
+      a       oa:Annotation , oa:TextPositionSelector ;
+      rdf:value "Union Grove"^^xsd:string ;
+      oa:end  "72"^^xsd:string ;
+      oa:hasBody <http://sj.abdn.ac.uk/resource/naptan/stops/639006353> ;
+      oa:hasSelector <http://sj.abdn.ac.uk/ozStudyD2R/resource/annotation/47781589-bb67-44dd-bbb2-a39d40cee855> ;
+      oa:hasTarget <http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/tweet/575316302199414784> ;
+      oa:start "61"^^xsd:string .
+
+ptop:hasEmployee
+      a       owl:ObjectProperty ;
+      rdfs:comment "Relates a particular organization to its employees."@en ;
+      rdfs:label "has Employee"@en ;
+      rdfs:range ptop:Person ;
+      rdfs:subPropertyOf ptop:hasMember .
+
+ptop:numberOfEmployees
+      a       owl:DatatypeProperty ;
+      rdfs:comment "The estimated number of employees in the organization."@en ;
+      rdfs:domain ptop:Organization ;
+      rdfs:label "Number of Employees"@en .
+
+ptop:documentSubTitle
+      a       owl:DatatypeProperty ;
+      rdfs:comment "A very short sub-title of a document, usually a single sentence"@en ;
+      rdfs:domain ptop:Document ;
+      rdfs:label "Document Subtitle"@en ;
+      rdfs:subPropertyOf ptop:laconicDescription .
+
+ptop:informationResourceCoverage
+      a       owl:DatatypeProperty ;
+      rdfs:comment "The extent or scope of resource content. Typically, Coverage will include spatial location (a place name or geographic coordinates), temporal period (a period label, date, or date range), or jurisdiction (such as a named administrative entity). Recommended best practice is to select a value from a controlled vocabulary (for example, the Thesaurus of Geographic Names [TGN]) and to use, where appropriate, named places or time periods in preference to numeric identifiers such as sets of coordinates or date ranges. DC2003ISO"@en ;
+      rdfs:domain ptop:InformationResource ;
+      rdfs:label "Information Resource Coverage"@en .
+
+ptop:mainLabel
+      a       owl:DatatypeProperty ;
+      rdfs:comment "This is a label of an entity which is consider to be representative for it. In cases when the entity is presented to someone, usually, this label will be used. In a sense, it is a specializatoin of rdfs:label"@en ;
+      rdfs:domain ptop:Entity ;
+      rdfs:label "Main Label"@en ;
+      rdfs:range rdfs:Literal .
+
+<http://sj.abdn.ac.uk/resource/71958357>
+      a       <http://sj.abdn.ac.uk/ontology/Highway> .
+
+<http://sj.abdn.ac.uk/resource/naptan/stops/639000012>
+      a       <http://transport.data.gov.uk/def/naptan/Stop> .

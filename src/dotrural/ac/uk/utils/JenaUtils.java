@@ -1,6 +1,7 @@
 package dotrural.ac.uk.utils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,6 +10,7 @@ import java.util.UUID;
 import javax.servlet.ServletContext;
 
 import org.json.JSONObject;
+import org.topbraid.spin.inference.SPINExplanations;
 import org.topbraid.spin.inference.SPINInferences;
 import org.topbraid.spin.system.SPINModuleRegistry;
 
@@ -120,6 +122,27 @@ public class JenaUtils {
 		return modelToWriteTo;
 	}
 
+	public static void initialiseDomainModel(OntModel domainModel, Utils utils) throws FileNotFoundException {
+		// load the transport disruption ontology and infer superclasses
+		OntModel disruptionOntology = ModelFactory
+				.createOntologyModel(OntModelSpec.OWL_MEM_RDFS_INF);
+		utils.loadIntoModel(disruptionOntology, "TTL",
+				"http://sj.abdn.ac.uk/SocialJourneysAnnotationOntology/transportdisruption.ttl");
+		// disruptionOntology.write(System.out);
+
+		// load the rules model and add
+
+		OntModel rulesModel = utils
+				.loadOntologyModels("TTL",
+						"http://sj.abdn.ac.uk/SocialJourneysAnnotationOntology/inferencerules.ttl");
+		rulesModel.addSubModel(disruptionOntology);
+
+		// add disruption ontology to domain model
+		domainModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+		domainModel.add(rulesModel);
+	}
+	
+	
 	public static OntModel getTweetModel(String uri, ServletContext context) {
 
 		OntModel m = ModelFactory
@@ -149,16 +172,19 @@ public class JenaUtils {
 	}
 
 	// rule file URI shoul refer to ttl file containing spin rules
-	public static Model performSPINinferences(OntModel instanceModel,
-			String ruleFileURI) {
+	public synchronized Model performSPINinferences(OntModel dataModel, OntModel domainModel) {
 
 		// need to change so accepts array of files
-
+		
+		/* moved to the constructor
 		OntModel rules = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 		rules.read(ruleFileURI, "TTL");
-
 		OntModel ontology = ModelFactory.createOntologyModel();
-		ontology.read("http://purl.org/td/transportdisruption");
+		ontology.read("http://sj.abdn.ac.uk/SocialJourneysAnnotationOntology/transportdisruption.ttl");
+		
+		
+		
+		
 		instanceModel.add(ontology);
 
 		rules.addSubModel(instanceModel);
@@ -175,9 +201,31 @@ public class JenaUtils {
 
 		// Run all inferences
 		SPINInferences.run(rules, instanceModel, null, null, true, null);
-		instanceModel.remove(ontology);
+		instanceModel.remove(ontology);*/
+		
+		
+		Model inferedModel = ModelFactory.createDefaultModel();
+		domainModel.addSubModel(inferedModel);
+		inferedModel.setNsPrefixes(domainModel.getNsPrefixMap());
+		domainModel.addSubModel(dataModel);
 
-		return instanceModel;
+		// initialise the spin registry
+		SPINModuleRegistry.get().init();
+		SPINModuleRegistry.get().registerAll(domainModel, null);
+
+		// Run all inferences
+		SPINExplanations explain = new SPINExplanations();
+		long t1 = System.currentTimeMillis();
+		SPINInferences
+				.run(domainModel, inferedModel, explain, null, true, null);
+		long t2 = System.currentTimeMillis();
+		System.out.println(t2 - t1);
+		// return the domain model to its original state
+		domainModel.removeSubModel(inferedModel);
+		domainModel.removeSubModel(dataModel);
+		
+
+		return inferedModel;
 	}
 
 }

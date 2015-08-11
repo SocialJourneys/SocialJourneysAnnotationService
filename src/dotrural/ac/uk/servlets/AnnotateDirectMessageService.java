@@ -2,6 +2,7 @@ package dotrural.ac.uk.servlets;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -25,6 +26,7 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import dotrural.ac.uk.utils.JenaUtils;
 import dotrural.ac.uk.utils.KimUtils;
 import dotrural.ac.uk.utils.SparqlUtils;
+import dotrural.ac.uk.utils.Utils;
 
 public class AnnotateDirectMessageService extends HttpServlet {
 
@@ -32,13 +34,45 @@ public class AnnotateDirectMessageService extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private OntModel domainModel;
+	private Utils utils; 
 	
 	
 	
 	public AnnotateDirectMessageService () {
 		super();
+
+		this.utils = new Utils();
+		try {
+			JenaUtils.initialiseDomainModel(domainModel,utils);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace(System.err);
+		}
+		// TODO Auto-generated constructor stub
+		
 	}
 
+	private void initialiseDomainModel() throws FileNotFoundException {
+		// load the transport disruption ontology and infer superclasses
+		OntModel disruptionOntology = ModelFactory
+				.createOntologyModel(OntModelSpec.OWL_MEM_RDFS_INF);
+		utils.loadIntoModel(disruptionOntology, "TTL",
+				"http://sj.abdn.ac.uk/SocialJourneysAnnotationOntology/transportdisruption.ttl");
+		// disruptionOntology.write(System.out);
+
+		// load the rules model and add
+
+		OntModel rulesModel = utils
+				.loadOntologyModels("TTL",
+						"http://sj.abdn.ac.uk/SocialJourneysAnnotationOntology/inferencerules.ttl");
+		rulesModel.addSubModel(disruptionOntology);
+
+		// add disruption ontology to domain model
+		domainModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+		domainModel.add(rulesModel);
+	}
+	 
 	protected void doGet(HttpServletRequest request, HttpServletResponse res) throws ServletException, IOException {
 		res.setContentType("text/html");//setting the content type  
 		PrintWriter pw=res.getWriter();//get the stream to write the data  
@@ -83,7 +117,8 @@ public class AnnotateDirectMessageService extends HttpServlet {
 			sparqlEndPointUrl = request.getParameter("sparqEndpoint");
 			
 			//suitable for direct message as well.. 
-			OntModel ontologyModel = JenaUtils.getTweetModel (uri,request.getServletContext());
+			OntModel ontologyModel = ModelFactory
+					.createOntologyModel(OntModelSpec.OWL_MEM_RDFS_INF);
 			
 			//pw.println("initial instance model size: " + ontologyModel.size());
 			ontologyModel =  SparqlUtils.getSingleDirectMessageBottariData(uri,sparqlEndPointUrl,ontologyModel);
@@ -98,8 +133,8 @@ public class AnnotateDirectMessageService extends HttpServlet {
 				
 			if  ( request.getParameter("includeInference")!= null) {
 					
-		         
-			JenaUtils.performSPINinferences(ontologyModel, "http://sj.abdn.ac.uk/SocialJourneysAnnotationOntology/inferencerules.ttl").write(pw);
+			JenaUtils  jenaUtils = new  JenaUtils ();    
+		    jenaUtils.performSPINinferences(ontologyModel,domainModel ).write(pw);
 			
 			
 			}

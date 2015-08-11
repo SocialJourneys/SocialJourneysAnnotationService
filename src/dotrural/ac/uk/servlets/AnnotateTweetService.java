@@ -2,6 +2,7 @@ package dotrural.ac.uk.servlets;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -25,6 +26,7 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import dotrural.ac.uk.utils.JenaUtils;
 import dotrural.ac.uk.utils.KimUtils;
 import dotrural.ac.uk.utils.SparqlUtils;
+import dotrural.ac.uk.utils.Utils;
 
 public class AnnotateTweetService extends HttpServlet {
 
@@ -32,11 +34,20 @@ public class AnnotateTweetService extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final String annotationOntologyURL = "http://sj.abdn.ac.uk/SocialJourneysAnnotationOntology/socialJourneysSpin2.n3";
-	
+	private OntModel domainModel;
+	private Utils utils; 
 	
 	public AnnotateTweetService () {
 		super();
+		
+		this.utils = new Utils();
+		try {
+			JenaUtils.initialiseDomainModel(domainModel,utils);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace(System.err);
+		}
+		// TODO Auto-generated constructor stub
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse res) throws ServletException, IOException {
@@ -82,7 +93,8 @@ public class AnnotateTweetService extends HttpServlet {
 			uri = request.getParameter("uri");
 			sparqlEndPointUrl = request.getParameter("sparqEndpoint");
 			
-			OntModel ontologyModel = JenaUtils.getTweetModel (uri,request.getServletContext());
+			OntModel ontologyModel = ModelFactory
+					.createOntologyModel(OntModelSpec.OWL_MEM_RDFS_INF);
 			
 			//pw.println("initial instance model size: " + ontologyModel.size());
 			ontologyModel =  SparqlUtils.getSingleTweetBottariData(uri,sparqlEndPointUrl,ontologyModel);
@@ -98,8 +110,8 @@ public class AnnotateTweetService extends HttpServlet {
 			if  ( request.getParameter("includeInference")!= null) {
 					
 		         
-			JenaUtils.performSPINinferences(ontologyModel, "http://sj.abdn.ac.uk/SocialJourneysAnnotationOntology/inferencerules.ttl").write(pw);
-			
+				JenaUtils  jenaUtils = new  JenaUtils ();    
+			    jenaUtils.performSPINinferences(ontologyModel,domainModel ).write(pw);
 			}
 					
 			else {

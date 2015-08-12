@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
@@ -15,13 +16,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.jena.riot.RDFDataMgr;
 import org.topbraid.spin.inference.SPINInferences;
 import org.topbraid.spin.system.SPINModuleRegistry;
 
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
+import com.hp.hpl.jena.query.DatasetAccessor;
+import com.hp.hpl.jena.query.DatasetAccessorFactory;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.util.FileManager;
 
 import dotrural.ac.uk.utils.JenaUtils;
 import dotrural.ac.uk.utils.KimUtils;
@@ -34,122 +39,105 @@ public class AnnotateDirectMessageService extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public final static String FUSEKI_BUS_SERVICES_URI = "http://localhost:3030/busservices";
+
 	private OntModel domainModel;
-	private Utils utils; 
-	
-	
-	
-	public AnnotateDirectMessageService () {
+	private Utils utils;
+
+	public AnnotateDirectMessageService() {
 		super();
 
 		this.utils = new Utils();
 		try {
-			JenaUtils.initialiseDomainModel(domainModel,utils);
+			domainModel = JenaUtils.initialiseDomainModel();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace(System.err);
 		}
 		// TODO Auto-generated constructor stub
-		
+
 	}
 
-	private void initialiseDomainModel() throws FileNotFoundException {
-		// load the transport disruption ontology and infer superclasses
-		OntModel disruptionOntology = ModelFactory
-				.createOntologyModel(OntModelSpec.OWL_MEM_RDFS_INF);
-		utils.loadIntoModel(disruptionOntology, "TTL",
-				"http://sj.abdn.ac.uk/SocialJourneysAnnotationOntology/transportdisruption.ttl");
-		// disruptionOntology.write(System.out);
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse res)
+			throws ServletException, IOException {
+		res.setContentType("text/html");// setting the content type
+		PrintWriter pw = res.getWriter();// get the stream to write the data
 
-		// load the rules model and add
-
-		OntModel rulesModel = utils
-				.loadOntologyModels("TTL",
-						"http://sj.abdn.ac.uk/SocialJourneysAnnotationOntology/inferencerules.ttl");
-		rulesModel.addSubModel(disruptionOntology);
-
-		// add disruption ontology to domain model
-		domainModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-		domainModel.add(rulesModel);
-	}
-	 
-	protected void doGet(HttpServletRequest request, HttpServletResponse res) throws ServletException, IOException {
-		res.setContentType("text/html");//setting the content type  
-		PrintWriter pw=res.getWriter();//get the stream to write the data  
-		  
-		
-		//writing html in the stream  
-		pw.println("<html><body>");  
-		pw.println("this servlet accepts post parameter uri that represents the resource uri of a tweet described using bottari ontology (https://raw.githubusercontent.com/SocialJourneys/SocialJourneysOntologies/master/bottari.n3)."); 
-		pw.println("<br>"); 
-		pw.println("<br>");  
-		pw.println("For testing only..."); 
-		pw.println("<br>"); 
-		pw.println("<br>");  
-		pw.println("Enter the uri of the tweet want to process"); 
-		pw.println("<br>"); 
-		pw.println("<br>");  
-		pw.println("<form action='/kim/annotateDirectMessage' method='post'>"); 
-		pw.println("<b>Tweet URI : </b><input name='uri' size='100' value='http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/directMessage/601080917499768832'></input>"); 
-		pw.println("<br>"); 
-		pw.println("<b>SPARQL endpoint URI : </b><input name='sparqEndpoint' size='40' value='http://sj.abdn.ac.uk/ozStudyD2R/sparql'></input>"); 
-		pw.println("<br>"); 
+		// writing html in the stream
+		pw.println("<html><body>");
+		pw.println("this servlet accepts post parameter uri that represents the resource uri of a tweet described using bottari ontology (https://raw.githubusercontent.com/SocialJourneys/SocialJourneysOntologies/master/bottari.n3).");
+		pw.println("<br>");
+		pw.println("<br>");
+		pw.println("For testing only...");
+		pw.println("<br>");
+		pw.println("<br>");
+		pw.println("Enter the uri of the tweet want to process");
+		pw.println("<br>");
+		pw.println("<br>");
+		pw.println("<form action='/kim/annotateDirectMessage' method='post'>");
+		pw.println("<b>Tweet URI : </b><input name='uri' size='100' value='http://sj.abdn.ac.uk/ozStudyD2R/resource/ozstudy/twitter/directMessage/601080917499768832'></input>");
+		pw.println("<br>");
+		pw.println("<b>SPARQL endpoint URI : </b><input name='sparqEndpoint' size='40' value='http://sj.abdn.ac.uk/ozStudyD2R/sparql'></input>");
+		pw.println("<br>");
 		pw.println(" <input type='checkbox' name='includeInference' > Show Inferences<br>");
-		pw.println("<input type='submit' value='Submit'>"); 
-		pw.println("</form>"); 
-		pw.println("</body></html>");  
-		
-		pw.close();//closing the stream  
+		pw.println("<input type='submit' value='Submit'>");
+		pw.println("</form>");
+		pw.println("</body></html>");
+
+		pw.close();// closing the stream
 	}
-	
-	
-	
-	
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse res) throws ServletException, IOException {
-		res.setContentType("text/rdf+n3");//setting the content type  
-		PrintWriter pw=res.getWriter();//get the stream to write the data  
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse res)
+			throws ServletException, IOException {
+		res.setContentType("text/rdf+n3");// setting the content type
+		PrintWriter pw = res.getWriter();// get the stream to write the data
 		String uri = null;
 		String sparqlEndPointUrl = null;
-		
-		if  ( (request.getParameter("uri")!= null)&&(request.getParameter("sparqEndpoint")!= null)) {
+
+		if ((request.getParameter("uri") != null)
+				&& (request.getParameter("sparqEndpoint") != null)) {
 			uri = request.getParameter("uri");
 			sparqlEndPointUrl = request.getParameter("sparqEndpoint");
-			
-			//suitable for direct message as well.. 
+
+			// suitable for direct message as well..
 			OntModel ontologyModel = ModelFactory
 					.createOntologyModel(OntModelSpec.OWL_MEM_RDFS_INF);
-			
-			//pw.println("initial instance model size: " + ontologyModel.size());
-			ontologyModel =  SparqlUtils.getSingleDirectMessageBottariData(uri,sparqlEndPointUrl,ontologyModel);
-			//pw.println("after tweet data added instance model size: " + ontologyModel.size());
-			String messageToAnnotate =  SparqlUtils.getMessageBodyOfTheTweetByURI (uri,sparqlEndPointUrl);
+
+			// pw.println("initial instance model size: " +
+			// ontologyModel.size());
+			ontologyModel = SparqlUtils.getSingleDirectMessageBottariData(uri,
+					sparqlEndPointUrl, ontologyModel);
+			// pw.println("after tweet data added instance model size: " +
+			// ontologyModel.size());
+			String messageToAnnotate = SparqlUtils
+					.getMessageBodyOfTheTweetByURI(uri, sparqlEndPointUrl);
 			if (messageToAnnotate != null) {
-				
-			
-			ontologyModel =  JenaUtils.addAnnotationsToModel(ontologyModel, KimUtils.annotateText(messageToAnnotate), uri,messageToAnnotate);
-			// pw.println("after annotations added instance model size: " + ontologyModel.size());
-			//if  ( (request.getParameter("includeInference")!= null)) {
-				
-			if  ( request.getParameter("includeInference")!= null) {
-					
-			JenaUtils  jenaUtils = new  JenaUtils ();    
-		    jenaUtils.performSPINinferences(ontologyModel,domainModel ).write(pw);
-			
-			
+
+				ontologyModel = JenaUtils.addAnnotationsToModel(ontologyModel,
+						KimUtils.annotateText(messageToAnnotate), uri,
+						messageToAnnotate);
+				// pw.println("after annotations added instance model size: " +
+				// ontologyModel.size());
+				// if ( (request.getParameter("includeInference")!= null)) {
+
+				if (request.getParameter("includeInference") != null) {
+
+					JenaUtils jenaUtils = new JenaUtils();
+					jenaUtils.performSPINinferences(ontologyModel, domainModel)
+							.write(pw);
+
+				}
+
+				else {
+					ontologyModel.write(pw);
+				}
 			}
-					
-			else {
-				ontologyModel.write(pw);
-			}
-			}
-			       
+
 		}
-		
-		pw.close();//closing the stream  
-		
+
+		pw.close();// closing the stream
+
 	}
-	
-	
-	
+
 }

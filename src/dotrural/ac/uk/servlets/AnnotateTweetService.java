@@ -20,6 +20,8 @@ import org.topbraid.spin.system.SPINModuleRegistry;
 
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
+import com.hp.hpl.jena.query.DatasetAccessor;
+import com.hp.hpl.jena.query.DatasetAccessorFactory;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 
@@ -42,7 +44,7 @@ public class AnnotateTweetService extends HttpServlet {
 		
 		this.utils = new Utils();
 		try {
-			JenaUtils.initialiseDomainModel(domainModel,utils);
+			domainModel = JenaUtils.initialiseDomainModel();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace(System.err);
@@ -50,6 +52,7 @@ public class AnnotateTweetService extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse res) throws ServletException, IOException {
 		res.setContentType("text/html");//setting the content type  
 		PrintWriter pw=res.getWriter();//get the stream to write the data  

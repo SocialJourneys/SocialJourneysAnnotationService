@@ -18,6 +18,8 @@ import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
+import com.hp.hpl.jena.query.DatasetAccessor;
+import com.hp.hpl.jena.query.DatasetAccessorFactory;
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
@@ -122,24 +124,40 @@ public class JenaUtils {
 		return modelToWriteTo;
 	}
 
-	public static void initialiseDomainModel(OntModel domainModel, Utils utils) throws FileNotFoundException {
+	public static OntModel initialiseDomainModel() throws FileNotFoundException {
+		Utils utils = new Utils ();
+		
 		// load the transport disruption ontology and infer superclasses
-		OntModel disruptionOntology = ModelFactory
-				.createOntologyModel(OntModelSpec.OWL_MEM_RDFS_INF);
-		utils.loadIntoModel(disruptionOntology, "TTL",
-				"http://sj.abdn.ac.uk/SocialJourneysAnnotationOntology/transportdisruption.ttl");
-		// disruptionOntology.write(System.out);
+				OntModel disruptionOntology = ModelFactory
+						.createOntologyModel(OntModelSpec.OWL_MEM_RDFS_INF);
+				utils.loadIntoModel(disruptionOntology, "TTL",
+						"http://sj.abdn.ac.uk/SocialJourneysAnnotationOntology/transportdisruption.ttl");
+				utils.loadIntoModel(disruptionOntology, "TTL",
+						"http://sj.abdn.ac.uk/SocialJourneysAnnotationOntology/stopsAberdeen.ttl");
+				// utils.loadIntoModel(disruptionOntology,
+				// "N-TRIPLES","http://sj.abdn.ac.uk/SocialJourneysAnnotationOntology/busroutes.nt");
+				// RDFDataMgr.read(disruptionOntology,
+				// "http://sj.abdn.ac.uk/SocialJourneysAnnotationOntology/busroutes.nt")
+				// ;
+				//load bus routes
+				DatasetAccessor busServicesStoreAccessor = DatasetAccessorFactory
+						.createHTTP("http://localhost:3030/busroutes/data");
+				Model m = busServicesStoreAccessor.getModel();
+				disruptionOntology.add(m);
+				// disruptionOntology.write(System.out);
 
-		// load the rules model and add
+				// load the rules model and add
 
-		OntModel rulesModel = utils
-				.loadOntologyModels("TTL",
-						"http://sj.abdn.ac.uk/SocialJourneysAnnotationOntology/inferencerules.ttl");
-		rulesModel.addSubModel(disruptionOntology);
+				OntModel rulesModel = utils
+						.loadOntologyModels("TTL",
+								"http://sj.abdn.ac.uk/SocialJourneysAnnotationOntology/inferencerules.ttl");
+				rulesModel.addSubModel(disruptionOntology);
 
-		// add disruption ontology to domain model
-		domainModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-		domainModel.add(rulesModel);
+				// add disruption ontology to domain model
+				OntModel domainModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+				domainModel.add(rulesModel);
+				
+				return domainModel;
 	}
 	
 	
